@@ -23,8 +23,11 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=TheLoai}/{action=Index}/{id?}",
-    defaults: new { controller = "TheLoai", action = "Index" });
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "trang-chu",
@@ -32,8 +35,8 @@ app.MapControllerRoute(
     defaults: new { controller = "Home", action = "Index" });
 
 app.MapControllerRoute(
-    name: "trang-chinh",
-    pattern: "trang-chinh",
-    defaults: new { controller = "Home", action = "Index" });
+    name: "gioi-thieu-nhom",
+    pattern: "gioi-thieu-nhom/{action=Index}/{id?}",
+    defaults: new { controller = "Nhom", action = "Index" });
 
 app.Run();

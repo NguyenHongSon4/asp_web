@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\wwwroot\\img\\anh.jpg",
+      "PackagePath": "staticwebassets\\img\\anh.jpg"
+    },
+    {
       "Id": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6984A918-9C08-47D2-871A-B207C9F596D6}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6984A918-9C08-47D2-871A-B207C9F596D6}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6984A918-9C08-47D2-871A-B207C9F596D6}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\views\\theloai\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6984A918-9C08-47D2-871A-B207C9F596D6}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\views\\theloai\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\views\\nhom\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\views\\nhom\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\controllers\\nhomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\controllers\\nhomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BC9FB7D6-E487-44D8-932C-C2A6A248D5D0}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,28 +50,93 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "BaiTap03\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "BaiTap03\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAADUAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-27T07:04:35.792Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "BaiTap03\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "BaiTap03\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-27T06:56:35.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "site.css",
+              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "BaiTap03\\wwwroot\\css\\site.css",
+              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "BaiTap03\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-08-27T06:56:25.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Program.cs",
               "RelativeDocumentMoniker": "BaiTap03\\Program.cs",
               "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Program.cs",
               "RelativeToolTip": "BaiTap03\\Program.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAABMAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACcAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-26T07:42:41.28Z",
+              "WhenOpened": "2024-08-27T06:54:22.801Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\TheLoai\\Index.cshtml",
-              "RelativeDocumentMoniker": "BaiTap03\\Views\\TheLoai\\Index.cshtml",
-              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\TheLoai\\Index.cshtml",
-              "RelativeToolTip": "BaiTap03\\Views\\TheLoai\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\Nhom\\Index.cshtml",
+              "RelativeDocumentMoniker": "BaiTap03\\Views\\Nhom\\Index.cshtml",
+              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\Nhom\\Index.cshtml",
+              "RelativeToolTip": "BaiTap03\\Views\\Nhom\\Index.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-08-26T07:09:37.374Z",
+              "WhenOpened": "2024-08-27T06:53:32.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NhomController.cs",
+              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Controllers\\NhomController.cs",
+              "RelativeDocumentMoniker": "BaiTap03\\Controllers\\NhomController.cs",
+              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Controllers\\NhomController.cs",
+              "RelativeToolTip": "BaiTap03\\Controllers\\NhomController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-27T06:52:58.034Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "BaiTap03\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "BaiTap03\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-27T06:50:10.497Z",
               "EditorCaption": ""
             }
           ]

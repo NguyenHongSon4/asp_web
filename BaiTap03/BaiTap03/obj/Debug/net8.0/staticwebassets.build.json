@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8rGE5y9oAV5BL/nNVNymQ4oHm8PMM3WalR2n92t+WBA=",
+  "Hash": "klqvWHeHHrOy98bSgEOFRgyH3P9aZggc2h5SpXzLUJs=",
   "Source": "BaiTap03",
   "BasePath": "_content/BaiTap03",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\wwwroot\\img\\anh.jpg",
+      "SourceId": "BaiTap03",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\wwwroot\\",
+      "BasePath": "_content/BaiTap03",
+      "RelativePath": "img/anh.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\anh.jpg"
     },
     {
       "Identity": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\wwwroot\\js\\site.js",

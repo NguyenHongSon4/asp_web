@@ -1,0 +1,65 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6984A918-9C08-47D2-871A-B207C9F596D6}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6984A918-9C08-47D2-871A-B207C9F596D6}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6984A918-9C08-47D2-871A-B207C9F596D6}|BaiTap03\\BaiTap03.csproj|d:\\lap trinh web\\asp_web\\baitap03\\baitap03\\views\\theloai\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6984A918-9C08-47D2-871A-B207C9F596D6}|BaiTap03\\BaiTap03.csproj|solutionrelative:baitap03\\views\\theloai\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Program.cs",
+              "RelativeDocumentMoniker": "BaiTap03\\Program.cs",
+              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Program.cs",
+              "RelativeToolTip": "BaiTap03\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T07:42:41.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\TheLoai\\Index.cshtml",
+              "RelativeDocumentMoniker": "BaiTap03\\Views\\TheLoai\\Index.cshtml",
+              "ToolTip": "D:\\Lap Trinh Web\\asp_web\\BaiTap03\\BaiTap03\\Views\\TheLoai\\Index.cshtml",
+              "RelativeToolTip": "BaiTap03\\Views\\TheLoai\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-26T07:09:37.374Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
