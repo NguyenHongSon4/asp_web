@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "DangKy";
+}
+
+<h1>Sign Up Your Account</h1>
+
+@model TaiKhoanViewModel
+
+<div class="container">
+    <form method="post">
+        <label asp-for="Account">Account Name: </label>
+        <input asp-for="Account" type="text" class="form-control" />
+
+        <label asp-for="Password">Password: </label>
+        <input asp-for="Password" type="text" class="form-control" />
+
+        <label asp-for="Name">Name: </label>
+        <input asp-for="Name" type="text" class="form-control" />
+
+        <label asp-for="Age">Age: </label>
+        <input asp-for="Age" type="text" class="form-control" />
+
+        <button type="submit" class="btn btn-primary">Sign up</button>
+
+        
+    </form>
+   <br />
+    @if (Model != null)
+    {
+        <p>Account name: @Model.Account</p>
+        <p>Password: @Model.Password</p>
+        <p>Name: @Model.Name</p>
+        <p>Age: @Model.Age</p>
+    }
+</div>
