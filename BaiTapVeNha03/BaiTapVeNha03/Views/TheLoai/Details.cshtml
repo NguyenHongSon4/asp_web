@@ -1,0 +1,25 @@
+﻿﻿@using BaiTapVeNha03.Models
+@model TheLoai
+<div class="container">
+    <h3>Thông tin thể loại</h3>
+    <div asp-validation-summary="All" class="text-danger">   </div>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Name">Tên thể loại</label>
+            <input asp-for="Name" type="text" class="form-control" readonly />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DateCreated">Ngày tạo</label>
+            <input asp-for="DateCreated" type="date" class="form-control" readonly />
+            <span asp-validation-for="DateCreated" class="text-danger"></span>
+        </div>
+        <a asp-action="Index" asp-controller="TheLoai" class="btn btn-primary">Back</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
