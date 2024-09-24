@@ -1,0 +1,36 @@
+﻿@model LopHoc
+<h1>Danh sách lớp học</h1>
+<br />
+<div class="container">
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên lớp</th>
+                <th>Ngày nhập học</th>
+                <th>Ngày ra trường</th>
+                <th>Số lượng</th>
+                <th>Chức năng</th>
+            </tr>
+        </thead>
+        @foreach (var item in ViewBag.lophoc)
+        {
+            <tbody>
+                <tr>
+                    <td width="20%">@item.Name</td>
+                    <td width="20%">@String.Format("{00:dd/MM/yyyy}", item.DateCreated) </td>
+                    <td width="20%">@String.Format("{00:dd/MM/yyyy}", item.DateOut) </td>
+                    <td width="20%">@item.Soluong</td>
+                    <td width="20%">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+    <a asp-controller="LopHoc" asp-action="Create" class="btn btn-primary">Thêm mới</a>
+</div>
+
+
