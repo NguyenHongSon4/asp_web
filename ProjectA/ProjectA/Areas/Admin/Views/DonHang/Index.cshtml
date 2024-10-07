@@ -1,0 +1,601 @@
+﻿@model IEnumerable<HoaDon>
+
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    .dh-wrap {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        color: #1a1a2e;
+    }
+
+    /* ── Header ── */
+    .dh-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .dh-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a2e;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+    }
+
+        .dh-title .icon-wrap {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 17px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(67,97,238,0.3);
+        }
+
+    .dh-count-badge {
+        background: #f0f2ff;
+        color: #4361ee;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 14px;
+        border-radius: 20px;
+        border: 1.5px solid #c5caff;
+    }
+
+    /* ── Stats ── */
+    .dh-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 24px;
+    }
+
+    .dh-stat-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 18px 20px;
+        border: 1.5px solid #eef0f8;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .dh-stat-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+        .dh-stat-icon.blue {
+            background: #f0f2ff;
+            color: #4361ee;
+        }
+
+        .dh-stat-icon.green {
+            background: #f0fdf4;
+            color: #10b981;
+        }
+
+        .dh-stat-icon.amber {
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+    .dh-stat-num {
+        font-size: 22px;
+        font-weight: 800;
+        color: #1a1a2e;
+        line-height: 1;
+    }
+
+    .dh-stat-label {
+        font-size: 12px;
+        color: #aaa;
+        margin-top: 2px;
+    }
+
+    /* ── Panel & Table ── */
+    .dh-panel {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        border: 1.5px solid #eef0f8;
+        overflow: hidden;
+    }
+
+    .dh-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .dh-table thead tr {
+            background: #f8f9ff;
+            border-bottom: 2px solid #eef0f8;
+        }
+
+        .dh-table thead th {
+            padding: 14px 18px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #aaa;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+            .dh-table thead th i {
+                color: #4361ee;
+                margin-right: 5px;
+            }
+
+        .dh-table tbody tr {
+            border-bottom: 1px solid #f5f5f8;
+            transition: background 0.15s;
+        }
+
+            .dh-table tbody tr:last-child {
+                border-bottom: none;
+            }
+
+            .dh-table tbody tr:hover {
+                background: #fafbff;
+            }
+
+        .dh-table td {
+            padding: 14px 18px;
+            font-size: 13.5px;
+            color: #444;
+            vertical-align: middle;
+        }
+
+    .dh-id {
+        font-size: 12px;
+        font-weight: 700;
+        color: #4361ee;
+        background: #f0f2ff;
+        border: 1.5px solid #c5caff;
+        border-radius: 8px;
+        padding: 3px 10px;
+        display: inline-block;
+    }
+
+    .dh-name {
+        font-weight: 600;
+        color: #1a1a2e;
+        margin-bottom: 2px;
+    }
+
+    .dh-phone {
+        font-size: 12px;
+        color: #aaa;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+        .dh-phone i {
+            font-size: 10px;
+        }
+
+    .dh-address {
+        font-size: 13px;
+        color: #777;
+        max-width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ── Status badge ── */
+    .dh-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+        .dh-status.pending {
+            background: #fffbeb;
+            color: #d97706;
+            border: 1.5px solid #fde68a;
+        }
+
+        .dh-status.confirmed {
+            background: #f0f2ff;
+            color: #4361ee;
+            border: 1.5px solid #c5caff;
+        }
+
+        .dh-status.shipping {
+            background: #f0f9ff;
+            color: #0284c7;
+            border: 1.5px solid #bae6fd;
+        }
+
+        .dh-status.done {
+            background: #f0fdf4;
+            color: #10b981;
+            border: 1.5px solid #a7f3d0;
+        }
+
+        .dh-status.cancel {
+            background: #fff0f1;
+            color: #e63946;
+            border: 1.5px solid #ffc5c8;
+        }
+
+        .dh-status.default {
+            background: #f5f5f8;
+            color: #888;
+            border: 1.5px solid #e0e3f0;
+        }
+
+    .dh-total {
+        font-size: 14px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* ── Action buttons ── */
+    .dh-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-dh-detail {
+        height: 34px;
+        padding: 0 12px;
+        border-radius: 10px;
+        background: #f0f2ff;
+        border: 1.5px solid #c5caff;
+        color: #4361ee;
+        font-size: 12.5px;
+        font-weight: 600;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.18s, color 0.18s, border-color 0.18s;
+        white-space: nowrap;
+    }
+
+        .btn-dh-detail:hover {
+            background: #4361ee;
+            color: #fff;
+            border-color: #4361ee;
+        }
+
+    /* Nút ✓ giao thành công */
+    .btn-dh-done {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: #f0fdf4;
+        border: 1.5px solid #a7f3d0;
+        color: #10b981;
+        font-size: 15px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        transition: background 0.18s, color 0.18s, border-color 0.18s;
+        flex-shrink: 0;
+    }
+
+        .btn-dh-done:hover {
+            background: #10b981;
+            color: #fff;
+            border-color: #10b981;
+        }
+
+    /* Nút ✗ hủy đơn */
+    .btn-dh-cancel {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: #fff0f1;
+        border: 1.5px solid #ffc5c8;
+        color: #e63946;
+        font-size: 15px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        transition: background 0.18s, color 0.18s, border-color 0.18s;
+        flex-shrink: 0;
+    }
+
+        .btn-dh-cancel:hover {
+            background: #e63946;
+            color: #fff;
+            border-color: #e63946;
+        }
+
+    /* Tooltip */
+    [title] {
+        position: relative;
+    }
+
+    /* Empty */
+    .dh-empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: #ccc;
+    }
+
+        .dh-empty i {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .dh-empty p {
+            font-size: 14px;
+        }
+
+    @@media (max-width: 768px) {
+        .dh-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .dh-address {
+            max-width: 100px;
+        }
+
+        .dh-table td, .dh-table th {
+            padding: 10px 12px;
+        }
+    }
+</style>
+
+@if (TempData["StatusUpdated"] != null)
+{
+    <div style="position:fixed;top:80px;right:24px;z-index:9999;
+                    background:#1a1a2e;color:#fff;padding:13px 20px;
+                    border-radius:14px;font-size:13.5px;font-family:'Be Vietnam Pro',sans-serif;
+                    display:flex;align-items:center;gap:10px;
+                    box-shadow:0 8px 24px rgba(0,0,0,0.2);" id="statusToast">
+        <i class="fas fa-check-circle" style="color:#10b981;font-size:16px;"></i>
+        <span>@TempData["StatusUpdated"]</span>
+    </div>
+    <script>
+        setTimeout(() => {
+            var t = document.getElementById('statusToast');
+            if (t) { t.style.transition='opacity 0.4s'; t.style.opacity='0'; }
+            setTimeout(() => { if(t) t.remove(); }, 450);
+        }, 3000);
+    </script>
+}
+
+<div class="dh-wrap">
+
+    <!-- Header -->
+    <div class="dh-header">
+        <h2 class="dh-title">
+            <span class="icon-wrap"><i class="fas fa-receipt"></i></span>
+            Danh sách đơn hàng
+        </h2>
+        <span class="dh-count-badge">@Model.Count() đơn hàng</span>
+    </div>
+
+    <!-- Stats -->
+    @{
+        int total = Model.Count();
+        int pending = Model.Count(o => o.OrderStatus != null && o.OrderStatus.Contains("xác nhận"));
+
+        // Chỉ tính doanh thu từ đơn CHƯA bị hủy
+        double revenue = Model
+        .Where(o => o.OrderStatus == null || !o.OrderStatus.Contains("hủy"))
+        .Sum(o => o.Total);
+
+        // Đơn hủy
+        int cancelled = Model.Count(o => o.OrderStatus != null && o.OrderStatus.Contains("hủy"));
+
+        // Doanh thu bị mất do hủy
+        double lostRevenue = Model
+        .Where(o => o.OrderStatus != null && o.OrderStatus.Contains("hủy"))
+        .Sum(o => o.Total);
+    }
+    <div class="dh-stats" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="dh-stat-card">
+            <div class="dh-stat-icon blue"><i class="fas fa-shopping-bag"></i></div>
+            <div>
+                <div class="dh-stat-num">@total</div>
+                <div class="dh-stat-label">Tổng đơn hàng</div>
+            </div>
+        </div>
+        <div class="dh-stat-card">
+            <div class="dh-stat-icon amber"><i class="fas fa-clock"></i></div>
+            <div>
+                <div class="dh-stat-num">@pending</div>
+                <div class="dh-stat-label">Đang xác nhận</div>
+            </div>
+        </div>
+        <div class="dh-stat-card">
+            <div class="dh-stat-icon" style="background:#fff0f1;color:#e63946;">
+                <i class="fas fa-ban"></i>
+            </div>
+            <div>
+                <div class="dh-stat-num" style="color:#e63946;">@cancelled</div>
+                <div class="dh-stat-label">Đã hủy@(lostRevenue > 0 ? $" (-{lostRevenue.ToString("N0")}đ)" : "")</div>
+            </div>
+        </div>
+        <div class="dh-stat-card">
+            <div class="dh-stat-icon green"><i class="fas fa-coins"></i></div>
+            <div>
+                <div class="dh-stat-num" style="font-size:15px;color:#10b981;">@revenue.ToString("N0")đ</div>
+                <div class="dh-stat-label">Doanh thu thực</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="dh-panel">
+        <table class="dh-table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-hashtag"></i> ID</th>
+                    <th><i class="fas fa-user"></i> Khách hàng</th>
+                    <th><i class="fas fa-map-marker-alt"></i> Địa chỉ</th>
+                    <th><i class="fas fa-info-circle"></i> Trạng thái</th>
+                    <th><i class="fas fa-wallet"></i> Tổng tiền</th>
+                    <th><i class="fas fa-cog"></i> Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6">
+                            <div class="dh-empty">
+                                <i class="fas fa-box-open"></i>
+                                <p>Chưa có đơn hàng nào</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        string sc = "default";
+                        string statusText = item.OrderStatus ?? "";
+                        if (statusText.Contains("Đang xác nhận")) sc = "pending";
+                        else if (statusText.Contains("Đã xác nhận")) sc = "confirmed";
+                        else if (statusText == "Giao thành công") sc = "done";
+                        else if (statusText.Contains("giao") || statusText.Contains("vận chuyển")) sc = "shipping";
+                        else if (statusText.Contains("hủy")) sc = "cancel";
+
+                        bool canAct = sc != "done" && sc != "cancel";
+
+                        <tr>
+                            <td><span class="dh-id">#@item.Id</span></td>
+                            <td>
+                                <div class="dh-name">@item.Name</div>
+                                <div class="dh-phone"><i class="fas fa-phone"></i> @item.PhoneNumber</div>
+                            </td>
+                            <td>
+                                <div class="dh-address" title="@item.Address">@item.Address</div>
+                            </td>
+                            <td>
+                                <span class="dh-status @sc">
+                                    @switch (sc)
+                                    {
+                                        case "pending":
+                                            {
+                                                <i class="fas fa-clock"></i>
+                                                break;
+                                            }
+                                        case "confirmed":
+                                            {
+
+                                                <i class="fas fa-check"></i>
+                                                break;
+                                            }
+                                        case "shipping":
+                                            {
+
+                                                <i class="fas fa-truck"></i>
+                                                break;
+                                            }
+                                        case "done":
+                                            {
+
+                                                <i class="fas fa-check-double"></i>
+                                                break;
+                                            }
+                                        case "cancel":
+                                            {
+
+                                                <i class="fas fa-times-circle"></i>
+                                                break;
+                                            }
+                                        default:
+                                            {
+
+                                                <i class="fas fa-circle"></i>
+                                                break;
+                                            }
+                                    }
+                                    @item.OrderStatus
+                                </span>
+                            </td>
+                            <td><span class="dh-total">@item.Total.ToString("N0")đ</span></td>
+                            <td>
+                                <div class="dh-actions">
+                                    <!-- Chi tiết -->
+                                    <a class="btn-dh-detail" asp-action="Details" asp-route-id="@item.Id">
+                                        <i class="fas fa-eye"></i> Chi tiết
+                                    </a>
+
+                                    @if (canAct)
+                                    {
+                                        <!-- ✓ Giao thành công -->
+                                        <form asp-action="UpdateStatus" method="post" style="margin:0;">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <input type="hidden" name="status" value="Giao thành công" />
+                                            <button type="submit" class="btn-dh-done"
+                                                    title="Đánh dấu giao thành công"
+                                                    onclick="return confirm('Xác nhận đơn hàng #@item.Id đã giao thành công?')">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </form>
+
+                                        <!-- ✗ Hủy đơn -->
+                                        <form asp-action="UpdateStatus" method="post" style="margin:0;">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <input type="hidden" name="status" value="Đã hủy" />
+                                            <button type="submit" class="btn-dh-cancel"
+                                                    title="Hủy đơn hàng"
+                                                    onclick="return confirm('Bạn có chắc muốn hủy đơn hàng #@item.Id?')">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-size:12px;color:#ccc;font-style:italic;">
+                                            @(sc == "done" ? "Đã hoàn tất" : "Đã hủy")
+                                        </span>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TheLoai>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/6Bx0uwbDac8N7u+Y5EXzG6C8Dz8iP5M5Kyj8MO" crossorigin="anonymous">
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="theLoaiDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thể loại</a>
+    <div class="dropdown-menu" aria-labelledby="theLoaiDropdown">
+        @foreach (var item in Model)
+        {
+            <a asp-controller="Home"
+               asp-action="FilterByTheLoai"
+               asp-route-id="@item.Id"
+               class="dropdown-item">
+                @switch (item.Name)
+                {
+                    case "Máy tính":
+                        <i class="fas fa-laptop"></i> <!-- Laptop icon -->
+                        break;
+                    case "Điện thoại":
+                        <i class="fas fa-mobile-alt"></i> <!-- Mobile icon -->
+                        break;
+                    case "Tablet":
+                        <i class="fas fa-tablet-alt"></i> <!-- Tablet icon -->
+                        break;
+                    case "Ốp lưng":
+                        <i class="fas fa-box"></i> <!-- Box icon as an alternative -->
+                        break;
+                    case "Smartwatch":
+                        <i class="fas fa-clock"></i> <!-- Clock icon for Smartwatch -->
+                        break;
+                    case "Phụ kiện":
+                        <i class="fas fa-headphones"></i> <!-- Headphones icon -->
+                        break;
+                    case "PC":
+                        <i class="fas fa-desktop"></i> <!-- Desktop icon -->
+                        break;
+                    default:
+                        <i class="fas fa-tag"></i> <!-- Default icon for fallback -->
+                        break;
+                }
+                @item.Name
+            </a>
+        }
+    </div>
+</li>

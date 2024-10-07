@@ -1,0 +1,475 @@
+﻿@{
+    ViewData["Title"] = "Dịch vụ";
+}
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    .sv-wrap {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        color: #1a1a2e;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding-bottom: 60px;
+    }
+
+    /* ── Page header ── */
+    .sv-page-header {
+        margin-bottom: 32px;
+    }
+
+    .sv-page-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a2e;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 6px;
+    }
+
+        .sv-page-title .icon-wrap {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 17px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(67,97,238,0.3);
+        }
+
+    .sv-page-sub {
+        font-size: 14px;
+        color: #aaa;
+        margin-left: 50px;
+    }
+
+    /* ── Layout ── */
+    .sv-layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 20px;
+        align-items: start;
+    }
+
+    @@media (max-width: 700px) {
+        .sv-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ── Sidebar ── */
+    .sv-sidebar {
+        background: #fff;
+        border-radius: 20px;
+        padding: 16px 12px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        border: 1.5px solid #eef0f8;
+        position: sticky;
+        top: 84px;
+    }
+
+    .sv-sidebar-title {
+        font-size: 10.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #ccc;
+        padding: 4px 12px 12px;
+        border-bottom: 1px solid #f0f2f8;
+        margin-bottom: 8px;
+    }
+
+    .sv-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-bottom: 4px;
+        font-size: 13.5px;
+        font-weight: 500;
+        color: #555;
+        transition: background 0.18s, color 0.18s;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+        .sv-nav-item .nav-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            background: #f0f2ff;
+            color: #4361ee;
+            transition: background 0.18s, color 0.18s;
+        }
+
+        .sv-nav-item:hover {
+            background: #f0f2ff;
+            color: #4361ee;
+        }
+
+        .sv-nav-item.active {
+            background: linear-gradient(135deg, #4361ee14, #7209b714);
+            color: #4361ee;
+            font-weight: 700;
+        }
+
+            .sv-nav-item.active .nav-icon {
+                background: linear-gradient(135deg, #4361ee, #7209b7);
+                color: #fff;
+            }
+
+    .sv-nav-arrow {
+        margin-left: auto;
+        font-size: 11px;
+        color: #ccc;
+        transition: color 0.18s;
+    }
+
+    .sv-nav-item.active .sv-nav-arrow {
+        color: #4361ee;
+    }
+
+    /* ── Content panel ── */
+    .sv-content {
+        background: #fff;
+        border-radius: 20px;
+        padding: 36px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        border: 1.5px solid #eef0f8;
+        min-height: 420px;
+    }
+
+    /* Empty state */
+    .sv-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 300px;
+        color: #ddd;
+        text-align: center;
+    }
+
+        .sv-empty i {
+            font-size: 48px;
+            margin-bottom: 14px;
+        }
+
+        .sv-empty p {
+            font-size: 14px;
+            color: #bbb;
+        }
+
+    /* Service detail */
+    .sv-detail {
+        display: none;
+        animation: svFadeIn 0.28s ease;
+    }
+
+        .sv-detail.active {
+            display: block;
+        }
+
+    @@keyframes svFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .sv-detail-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        border-radius: 20px;
+        background: #f0f2ff;
+        color: #4361ee;
+        font-size: 12px;
+        font-weight: 600;
+        border: 1.5px solid #c5caff;
+        margin-bottom: 14px;
+    }
+
+    .sv-detail h3 {
+        font-size: 22px;
+        font-weight: 800;
+        color: #1a1a2e;
+        margin: 0 0 14px;
+        line-height: 1.3;
+    }
+
+    .sv-detail p {
+        font-size: 14.5px;
+        color: #666;
+        line-height: 1.85;
+        margin-bottom: 24px;
+    }
+
+    /* Image */
+    .sv-img-wrap {
+        border-radius: 18px;
+        overflow: hidden;
+        position: relative;
+        cursor: zoom-in;
+        border: 1.5px solid #eef0f8;
+    }
+
+        .sv-img-wrap img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+        }
+
+        .sv-img-wrap:hover img {
+            transform: scale(1.04);
+        }
+
+    .sv-img-zoom {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        background: rgba(255,255,255,0.9);
+        border-radius: 10px;
+        padding: 6px 10px;
+        font-size: 12px;
+        color: #4361ee;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        opacity: 0;
+        transition: opacity 0.22s;
+        pointer-events: none;
+    }
+
+    .sv-img-wrap:hover .sv-img-zoom {
+        opacity: 1;
+    }
+
+    /* ── Lightbox ── */
+    .sv-lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(10,10,30,0.88);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(6px);
+        cursor: zoom-out;
+    }
+
+        .sv-lightbox.open {
+            display: flex;
+        }
+
+        .sv-lightbox img {
+            max-width: min(90vw, 900px);
+            max-height: 85vh;
+            border-radius: 18px;
+            object-fit: contain;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+            animation: lbIn 0.25s ease;
+            cursor: default;
+        }
+
+    @@keyframes lbIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .sv-lb-close {
+        position: absolute;
+        top: 20px;
+        right: 24px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        border: 1.5px solid rgba(255,255,255,0.25);
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.18s;
+    }
+
+        .sv-lb-close:hover {
+            background: rgba(230,57,70,0.7);
+            border-color: transparent;
+        }
+</style>
+
+<!-- Lightbox -->
+<div class="sv-lightbox" id="svLightbox" onclick="closeLightbox(event)">
+    <button class="sv-lb-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+    <img id="svLbImg" src="" alt="">
+</div>
+
+<div class="sv-wrap">
+
+    <!-- Page header -->
+    <div class="sv-page-header">
+        <div class="sv-page-title">
+            <span class="icon-wrap"><i class="fas fa-concierge-bell"></i></span>
+            Dịch vụ của DesBy
+        </div>
+        <div class="sv-page-sub">Chọn dịch vụ bên trái để xem thông tin chi tiết</div>
+    </div>
+
+    <div class="sv-layout">
+
+        <!-- Sidebar -->
+        <div class="sv-sidebar">
+            <div class="sv-sidebar-title">Danh mục dịch vụ</div>
+
+            <button class="sv-nav-item" onclick="showService('sv1', this)">
+                <div class="nav-icon"><i class="fas fa-comments"></i></div>
+                Tư vấn & Hỗ trợ
+                <i class="fas fa-chevron-right sv-nav-arrow"></i>
+            </button>
+            <button class="sv-nav-item" onclick="showService('sv2', this)">
+                <div class="nav-icon"><i class="fas fa-tools"></i></div>
+                Bảo hành & Sửa chữa
+                <i class="fas fa-chevron-right sv-nav-arrow"></i>
+            </button>
+            <button class="sv-nav-item" onclick="showService('sv3', this)">
+                <div class="nav-icon"><i class="fas fa-microchip"></i></div>
+                Nâng cấp & Tùy chỉnh
+                <i class="fas fa-chevron-right sv-nav-arrow"></i>
+            </button>
+            <button class="sv-nav-item" onclick="showService('sv4', this)">
+                <div class="nav-icon"><i class="fas fa-house-user"></i></div>
+                Hỗ trợ tại nhà
+                <i class="fas fa-chevron-right sv-nav-arrow"></i>
+            </button>
+        </div>
+
+        <!-- Content -->
+        <div class="sv-content">
+
+            <!-- Empty state -->
+            <div class="sv-empty" id="svEmpty">
+                <i class="fas fa-hand-pointer"></i>
+                <p>Chọn một dịch vụ bên trái<br>để xem thông tin chi tiết</p>
+            </div>
+
+            <!-- Service 1 -->
+            <div class="sv-detail" id="sv1">
+                <div class="sv-detail-badge"><i class="fas fa-comments"></i> Dịch vụ</div>
+                <h3>Tư vấn và Hỗ trợ Mua hàng</h3>
+                <p>Chúng tôi cung cấp dịch vụ tư vấn chuyên nghiệp, giúp khách hàng chọn lựa sản phẩm laptop, điện thoại và phụ kiện phù hợp với nhu cầu và ngân sách. Đội ngũ tư vấn viên tận tâm, am hiểu sản phẩm sẽ hỗ trợ bạn từ bước chọn cấu hình, thương hiệu đến các tính năng đáp ứng công việc hay giải trí. Hãy đến với chúng tôi để trải nghiệm dịch vụ tư vấn miễn phí và tận hưởng những lợi ích tốt nhất từ sản phẩm.</p>
+                <div class="sv-img-wrap" onclick="openLightbox('https://cdn.tgdd.vn/Files/2022/03/23/1421891/publicpreview8_1280x853-800-resize.jpeg')">
+                    <img src="https://cdn.tgdd.vn/Files/2022/03/23/1421891/publicpreview8_1280x853-800-resize.jpeg" alt="Tư vấn và Hỗ trợ">
+                    <div class="sv-img-zoom"><i class="fas fa-expand"></i> Xem ảnh lớn</div>
+                </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="sv-detail" id="sv2">
+                <div class="sv-detail-badge"><i class="fas fa-tools"></i> Dịch vụ</div>
+                <h3>Bảo hành và Sửa chữa</h3>
+                <p>Với dịch vụ bảo hành và sửa chữa chất lượng cao, chúng tôi đảm bảo sản phẩm của bạn sẽ luôn trong tình trạng hoạt động tốt nhất. Đội ngũ kỹ thuật viên tay nghề cao cùng trang thiết bị hiện đại giúp chẩn đoán và sửa chữa nhanh chóng, chính xác. Chúng tôi cam kết sử dụng linh kiện chính hãng và cung cấp bảo hành dài hạn sau khi sửa chữa để khách hàng hoàn toàn yên tâm sử dụng.</p>
+                <div class="sv-img-wrap" onclick="openLightbox('https://cdn.phuckhangmobile.com/image/danh-sach-trung-tam-bao-hanh-apple-1-32878j.jpg')">
+                    <img src="https://cdn.phuckhangmobile.com/image/danh-sach-trung-tam-bao-hanh-apple-1-32878j.jpg" alt="Bảo hành và Sửa chữa">
+                    <div class="sv-img-zoom"><i class="fas fa-expand"></i> Xem ảnh lớn</div>
+                </div>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="sv-detail" id="sv3">
+                <div class="sv-detail-badge"><i class="fas fa-microchip"></i> Dịch vụ</div>
+                <h3>Nâng cấp và Tùy chỉnh</h3>
+                <p>Để đáp ứng nhu cầu công việc ngày càng tăng hoặc đam mê giải trí, chúng tôi cung cấp dịch vụ nâng cấp và tùy chỉnh laptop, điện thoại. Khách hàng có thể nâng cấp RAM, ổ cứng SSD hoặc thay đổi các linh kiện khác để cải thiện hiệu suất. Chúng tôi cam kết mang lại trải nghiệm vượt trội, tối ưu hóa khả năng vận hành cho thiết bị của bạn với mức chi phí hợp lý.</p>
+                <div class="sv-img-wrap" onclick="openLightbox('https://benhviencongnghe88.vn/media/news/1603_nngcpVGAlaptop.png')">
+                    <img src="https://benhviencongnghe88.vn/media/news/1603_nngcpVGAlaptop.png" alt="Nâng cấp và Tùy chỉnh">
+                    <div class="sv-img-zoom"><i class="fas fa-expand"></i> Xem ảnh lớn</div>
+                </div>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="sv-detail" id="sv4">
+                <div class="sv-detail-badge"><i class="fas fa-house-user"></i> Dịch vụ</div>
+                <h3>Hỗ trợ Kỹ thuật Tại nhà</h3>
+                <p>Đối với những khách hàng có nhu cầu hỗ trợ tại nhà, chúng tôi cung cấp dịch vụ kỹ thuật tận nơi. Đội ngũ kỹ thuật sẽ đến và hỗ trợ cài đặt, khắc phục sự cố hoặc hướng dẫn sử dụng sản phẩm. Dịch vụ này giúp tiết kiệm thời gian và mang lại sự tiện lợi tối đa, đặc biệt cho những ai không có điều kiện đến cửa hàng.</p>
+                <div class="sv-img-wrap" onclick="openLightbox('https://media.istockphoto.com/id/1439425791/vi/anh/c%C3%B4ng-ngh%E1%BB%87-s%E1%BB%91-kh%C3%A1i-ni%E1%BB%87m-ph%C3%A1t-tri%E1%BB%83n-ph%E1%BA%A7n-m%E1%BB%81m-l%E1%BA%ADp-tr%C3%ACnh-vi%C3%AAn-coding-l%C3%A0m-vi%E1%BB%87c-tr%C3%AAn-laptop-v%E1%BB%9Bi-b%E1%BA%A3ng.jpg?s=612x612&w=0&k=20&c=AYRrVhtw5_vU9_jgTbyTMx2hd9l0Fq0V9nX3EVBprDg=')">
+                    <img src="https://media.istockphoto.com/id/1439425791/vi/anh/c%C3%B4ng-ngh%E1%BB%87-s%E1%BB%91-kh%C3%A1i-ni%E1%BB%87m-ph%C3%A1t-tri%E1%BB%83n-ph%E1%BA%A7n-m%E1%BB%81m-l%E1%BA%ADp-tr%C3%ACnh-vi%C3%AAn-coding-l%C3%A0m-vi%E1%BB%87c-tr%C3%AAn-laptop-v%E1%BB%9Bi-b%E1%BA%A3ng.jpg?s=612x612&w=0&k=20&c=AYRrVhtw5_vU9_jgTbyTMx2hd9l0Fq0V9nX3EVBprDg=" alt="Hỗ trợ tại nhà">
+                    <div class="sv-img-zoom"><i class="fas fa-expand"></i> Xem ảnh lớn</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    let activeBtn = null;
+
+    function showService(id, btn) {
+        // Ẩn empty state
+        document.getElementById('svEmpty').style.display = 'none';
+
+        // Ẩn tất cả detail
+        document.querySelectorAll('.sv-detail').forEach(el => el.classList.remove('active'));
+
+        // Hiện detail được chọn
+        document.getElementById(id).classList.add('active');
+
+        // Toggle active button
+        document.querySelectorAll('.sv-nav-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function openLightbox(src) {
+        document.getElementById('svLbImg').src = src;
+        document.getElementById('svLightbox').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+        if (!e || e.target === document.getElementById('svLightbox') || e.target.closest('.sv-lb-close')) {
+            document.getElementById('svLightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>

@@ -1,0 +1,90 @@
+.mkdf-preload-background { background-image: url(https://macstores.vn/wp-content/themes/deploy/assets/img/preload_pattern.png) !important;}
+.mkdf-boxed .mkdf-wrapper { background-attachment: fixed;}
+h1 { font-family: Roboto;font-size: 21px;}
+h2 { font-family: Roboto;font-size: 20px;}
+h3 { font-family: Roboto;font-size: 18px;}
+h4 { font-family: Roboto;font-size: 16px;}
+h5 { font-family: Roboto;font-size: 14px;}
+h6 { font-family: Roboto;font-size: 12px;}
+p { font-size: 16px;}
+.cf7_custom_style_1 ::-webkit-input-placeholder { color: #767676;}
+.cf7_custom_style_1 :-moz-placeholder { color: #767676;}
+.cf7_custom_style_1 ::-moz-placeholder { color: #767676;}
+.cf7_custom_style_1 :-ms-input-placeholder { color: #767676;}
+.cf7_custom_style_1 textarea.wpcf7-form-control.wpcf7-textarea { height: 154px;}
+.cf7_custom_style_1 input.wpcf7-form-control.wpcf7-text, .cf7_custom_style_1 input.wpcf7-form-control.wpcf7-number, .cf7_custom_style_1 input.wpcf7-form-control.wpcf7-date, .cf7_custom_style_1 textarea.wpcf7-form-control.wpcf7-textarea, .cf7_custom_style_1 select.wpcf7-form-control.wpcf7-select, .cf7_custom_style_1 input.wpcf7-form-control.wpcf7-quiz { color: #767676;font-size: 12px;line-height: 22px;font-family: Open Sans;font-style: normal;font-weight: 400;text-transform: none;letter-spacing: 0px;background-color: rgba(247, 247, 247, 1);border-color: rgba(255, 255, 255, 1);border-width: 1px;border-radius: 6px;padding-top: 12px;padding-right: 24px;padding-bottom: 12px;padding-left: 24px;margin-top: 0px;margin-bottom: 12px;}
+.cf7_custom_style_1 input:focus::-webkit-input-placeholder, .cf7_custom_style_1 textarea:focus::-webkit-input-placeholder { color: #646464;}
+.cf7_custom_style_1 input:focus:-moz-placeholder, .cf7_custom_style_1 textarea:focus:-moz-placeholder { color: #646464;}
+.cf7_custom_style_1 input:focus::-moz-placeholder, .cf7_custom_style_1 textarea:focus::-moz-placeholder { color: #646464;}
+.cf7_custom_style_1 input:focus:-ms-input-placeholder, .cf7_custom_style_1 textarea:focus:-ms-input-placeholder { color: #646464;}
+.cf7_custom_style_1 input.wpcf7-form-control.wpcf7-text:focus, .cf7_custom_style_1 input.wpcf7-form-control.wpcf7-number:focus, .cf7_custom_style_1 input.wpcf7-form-control.wpcf7-date:focus, .cf7_custom_style_1 textarea.wpcf7-form-control.wpcf7-textarea:focus, .cf7_custom_style_1 select.wpcf7-form-control.wpcf7-select:focus, .cf7_custom_style_1 input.wpcf7-form-control.wpcf7-quiz:focus { color: #646464;background-color: rgba(247, 247, 247, 1);border-color: rgba(233, 233, 233, 1);}
+.cf7_custom_style_1 p { color: #767676;font-size: 12px;line-height: 22px;font-family: Open Sans;font-style: normal;font-weight: 400;text-transform: none;letter-spacing: 0px;}
+.cf7_custom_style_1 input.wpcf7-form-control.wpcf7-submit { color: #ffffff;font-size: 14px;height: 42px;font-family: Montserrat;font-style: normal;font-weight: 700;text-transform: none;letter-spacing: 0px;background-color: rgba(0, 136, 204, 1);border-color: rgba(0, 136, 204, 1);border-width: 2px;border-radius: 30px;padding-left: 30px;padding-right: 30px;}
+.cf7_custom_style_1 input.wpcf7-form-control.wpcf7-submit:not([disabled]):hover { color: #0088cc !important;background-color: rgba(255, 255, 255, 1) !important;border-color: rgba(0, 136, 204, 1) !important;}
+.cf7_custom_style_2 ::-webkit-input-placeholder { color: #767676;}
+.cf7_custom_style_2 :-moz-placeholder { color: #767676;}
+.cf7_custom_style_2 ::-moz-placeholder { color: #767676;}
+.cf7_custom_style_2 :-ms-input-placeholder { color: #767676;}
+.cf7_custom_style_2 textarea.wpcf7-form-control.wpcf7-textarea { height: 162px;}
+.cf7_custom_style_2 input.wpcf7-form-control.wpcf7-text, .cf7_custom_style_2 input.wpcf7-form-control.wpcf7-number, .cf7_custom_style_2 input.wpcf7-form-control.wpcf7-date, .cf7_custom_style_2 textarea.wpcf7-form-control.wpcf7-textarea, .cf7_custom_style_2 select.wpcf7-form-control.wpcf7-select, .cf7_custom_style_2 input.wpcf7-form-control.wpcf7-quiz { color: #767676;font-size: 12px;line-height: 22px;font-family: Open Sans;font-style: normal;font-weight: 400;text-transform: none;letter-spacing: 0px;background-color: rgba(255, 255, 255, 1);border-color: rgba(255, 255, 255, 1);border-width: 1px;border-radius: 6px;padding-top: 12px;padding-right: 24px;padding-bottom: 12px;padding-left: 24px;margin-top: 0px;margin-bottom: 12px;}
+.cf7_custom_style_2 input:focus::-webkit-input-placeholder, .cf7_custom_style_2 textarea:focus::-webkit-input-placeholder { color: #646464;}
+.cf7_custom_style_2 input:focus:-moz-placeholder, .cf7_custom_style_2 textarea:focus:-moz-placeholder { color: #646464;}
+.cf7_custom_style_2 input:focus::-moz-placeholder, .cf7_custom_style_2 textarea:focus::-moz-placeholder { color: #646464;}
+.cf7_custom_style_2 input:focus:-ms-input-placeholder, .cf7_custom_style_2 textarea:focus:-ms-input-placeholder { color: #646464;}
+.cf7_custom_style_2 input.wpcf7-form-control.wpcf7-text:focus, .cf7_custom_style_2 input.wpcf7-form-control.wpcf7-number:focus, .cf7_custom_style_2 input.wpcf7-form-control.wpcf7-date:focus, .cf7_custom_style_2 textarea.wpcf7-form-control.wpcf7-textarea:focus, .cf7_custom_style_2 select.wpcf7-form-control.wpcf7-select:focus, .cf7_custom_style_2 input.wpcf7-form-control.wpcf7-quiz:focus { color: #646464;background-color: rgba(255, 255, 255, 1);border-color: rgba(233, 233, 233, 1);}
+.cf7_custom_style_2 p { color: #767676;font-size: 12px;line-height: 22px;font-family: Open Sans;font-style: normal;font-weight: 400;text-transform: none;letter-spacing: 0px;}
+.cf7_custom_style_2 input.wpcf7-form-control.wpcf7-submit { color: #ffffff;font-size: 14px;height: 42px;font-family: Montserrat;font-style: normal;font-weight: 700;text-transform: capitalize;letter-spacing: 0px;background-color: rgba(0, 136, 204, 1);border-color: rgba(0, 136, 204, 1);border-width: 2px;border-radius: 30px;padding-left: 30px;padding-right: 30px;}
+.cf7_custom_style_2 input.wpcf7-form-control.wpcf7-submit:not([disabled]):hover { color: #0088cc !important;background-color: rgba(255, 255, 255, 1) !important;border-color: rgba(0, 136, 204, 1) !important;}
+.cf7_custom_style_3 ::-webkit-input-placeholder { color: #c2c2c2;}
+.cf7_custom_style_3 :-moz-placeholder { color: #c2c2c2;}
+.cf7_custom_style_3 ::-moz-placeholder { color: #c2c2c2;}
+.cf7_custom_style_3 :-ms-input-placeholder { color: #c2c2c2;}
+.cf7_custom_style_3 textarea.wpcf7-form-control.wpcf7-textarea { height: 106px;}
+.cf7_custom_style_3 input.wpcf7-form-control.wpcf7-text, .cf7_custom_style_3 input.wpcf7-form-control.wpcf7-number, .cf7_custom_style_3 input.wpcf7-form-control.wpcf7-date, .cf7_custom_style_3 textarea.wpcf7-form-control.wpcf7-textarea, .cf7_custom_style_3 select.wpcf7-form-control.wpcf7-select, .cf7_custom_style_3 input.wpcf7-form-control.wpcf7-quiz { color: #c2c2c2;font-size: 12px;line-height: 24px;font-family: Georgia;font-style: italic;font-weight: 400;text-transform: none;letter-spacing: 0px;background-color: rgba(39, 38, 38, 1);border-width: 0px;border-radius: 0px;padding-top: 10px;padding-right: 20px;padding-bottom: 10px;padding-left: 20px;margin-top: 0px;margin-bottom: 12px;}
+.cf7_custom_style_3 input:focus::-webkit-input-placeholder, .cf7_custom_style_3 textarea:focus::-webkit-input-placeholder { color: #ffffff;}
+.cf7_custom_style_3 input:focus:-moz-placeholder, .cf7_custom_style_3 textarea:focus:-moz-placeholder { color: #ffffff;}
+.cf7_custom_style_3 input:focus::-moz-placeholder, .cf7_custom_style_3 textarea:focus::-moz-placeholder { color: #ffffff;}
+.cf7_custom_style_3 input:focus:-ms-input-placeholder, .cf7_custom_style_3 textarea:focus:-ms-input-placeholder { color: #ffffff;}
+.cf7_custom_style_3 input.wpcf7-form-control.wpcf7-text:focus, .cf7_custom_style_3 input.wpcf7-form-control.wpcf7-number:focus, .cf7_custom_style_3 input.wpcf7-form-control.wpcf7-date:focus, .cf7_custom_style_3 textarea.wpcf7-form-control.wpcf7-textarea:focus, .cf7_custom_style_3 select.wpcf7-form-control.wpcf7-select:focus, .cf7_custom_style_3 input.wpcf7-form-control.wpcf7-quiz:focus { color: #ffffff;background-color: rgba(44, 42, 42, 1);}
+.cf7_custom_style_3 p { color: #c2c2c2;font-size: 12px;line-height: 24px;font-family: Georgia;font-style: italic;font-weight: 400;text-transform: none;letter-spacing: 0px;}
+.cf7_custom_style_3 input.wpcf7-form-control.wpcf7-submit { color: #212121;font-size: 12px;height: 38px;font-family: Montserrat;font-style: normal;font-weight: 700;text-transform: capitalize;letter-spacing: 0px;background-color: rgba(255, 255, 255, 1);border-width: 0px;border-radius: 30px;padding-left: 26px;padding-right: 26px;}
+.cf7_custom_style_3 input.wpcf7-form-control.wpcf7-submit:not([disabled]):hover { color: #ffffff !important;background-color: rgba(0, 136, 204, 1) !important;}
+.mkdf-header-standard .mkdf-page-header .mkdf-menu-area { background-color: rgba(0, 0, 0, 1);}
+.mkdf-drop-down .second .inner ul,
+.mkdf-drop-down .second .inner ul li ul,
+.shopping_cart_dropdown,
+li.narrow .second .inner ul,
+.mkdf-main-menu.mkdf-default-nav #lang_sel ul ul,
+.mkdf-main-menu.mkdf-default-nav #lang_sel_click  ul ul,
+.header-widget.widget_nav_menu ul ul,
+.mkdf-drop-down .wide.wide_background .second{
+background-color: #252525;
+background-color: rgba(37,37,37,1);
+}
+.mkdf-drop-down .second .inner > ul > li > a,
+.mkdf-drop-down .second .inner > ul > li > h4,
+.mkdf-drop-down .wide .second .inner > ul > li > h4,
+.mkdf-drop-down .wide .second .inner > ul > li > a,
+.mkdf-drop-down .wide .second ul li ul li.menu-item-has-children > a,
+.mkdf-drop-down .wide .second .inner ul li.sub ul li.menu-item-has-children > a,
+.mkdf-drop-down .wide .second .inner > ul li.sub .flexslider ul li  h4 a,
+.mkdf-drop-down .wide .second .inner > ul li .flexslider ul li  h4 a,
+.mkdf-drop-down .wide .second .inner > ul li.sub .flexslider ul li  h4,
+.mkdf-drop-down .wide .second .inner > ul li .flexslider ul li  h4,
+.mkdf-main-menu.mkdf-default-nav #lang_sel ul li li a,
+.mkdf-main-menu.mkdf-default-nav #lang_sel_click ul li ul li a,
+.mkdf-main-menu.mkdf-default-nav #lang_sel ul ul a,
+.mkdf-main-menu.mkdf-default-nav #lang_sel_click ul ul a{
+font-family: 'Roboto', sans-serif !important;
+}
+.mkdf-drop-down .wide .second .inner > ul > li > a{
+color: #1e73be;                             font-family: 'Roboto', sans-serif !important;
+}
+.mkdf-drop-down .second .inner ul li.sub ul li a{
+font-family: 'Roboto', sans-serif;
+}
+.mkdf-drop-down .wide .second .inner ul li.sub ul li a,
+.mkdf-drop-down .wide .second ul li ul li a{
+font-family: 'Roboto', sans-serif;
+}
+.single.single-product .product_meta { display: none;}

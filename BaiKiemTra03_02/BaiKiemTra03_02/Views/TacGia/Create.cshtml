@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+@model TacGia
+
+<div class="container">
+    <h3>Thêm tac gia</h3>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form method="post">
+
+        <lable asp-for="AuthorId">MTG: </lable>
+        <input asp-for="AuthorId" type="text" class="form-control" />
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="AuthorName">Tên: </lable>
+        <input asp-for="AuthorName" type="text" class="form-control" />
+        <span asp-validation-for="AuthorName" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="Nationality">Quoc tich: </lable>
+        <input asp-for="Nationality" type="text" class="form-control" />
+        <span asp-validation-for="Nationality" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="BirthYear">Ngay sinh: </lable>
+        <input asp-for="BirthYear" type="text" class="form-control" />
+        <span asp-validation-for="BirthYear" class="text-danger"></span>
+
+        <button type="submit" class="btn btn-primary">Tạo mới</button>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

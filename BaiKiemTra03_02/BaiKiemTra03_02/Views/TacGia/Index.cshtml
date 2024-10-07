@@ -1,0 +1,40 @@
+﻿@model TacGia
+
+<h1>Danh sách tác giả</h1>
+<br />
+<div class="container">
+    <form asp-action="Search" method="get">
+        <input type="text" name="searchString" placeholder="Nhập tác giả cần tìm..." value="@ViewBag.SearchString" />
+        <input type="submit" name="Tìm kiếm" />
+    </form>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã tác giả</th>
+                <th>Tên tác giả</th>
+                <th>Quốc tịch</th>
+                <th>Năm sinh</th>
+                <th>Chức năng</th>
+            </tr>
+        </thead>
+        @foreach (var item in ViewBag.TacGia)
+        {
+            <tbody>
+                <tr>
+                    <td width="20%">@item.AuthorId</td>
+                    <td width="20%">@item.AuthorName</td>
+                    <td width="20%">@item.Nationality</td>
+                    <td width="20%">@item.BirthYear</td>
+                    <td width="20%">
+                        <a asp-action="Edit" asp-route-id="@item.AuthorId" class="btn btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.AuthorId" class="btn btn-success">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.AuthorId" class="btn btn-danger">Delete</a>
+
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+    <a asp-controller="TacGia" asp-action="Create" class="btn btn-primary">Thêm mới</a>
+</div>

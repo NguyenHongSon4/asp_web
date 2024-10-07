@@ -1,0 +1,51 @@
+﻿@model string
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+        @if (!string.IsNullOrEmpty(Model))
+        {
+            var segments = Model.Split('/');
+            for (int i = 0; i < segments.Length; i++)
+            {
+                if (i == segments.Length - 1) // Nếu là phần cuối cùng, không cần liên kết
+                {
+                    <li class="breadcrumb-item active" aria-current="page">@segments[i]</li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item"><a href="#">@segments[i]</a></li> // Thay đổi '#' bằng đường dẫn thực tế nếu có
+                }
+            }
+        }
+    </ol>
+</nav>
+
+<style>
+    .breadcrumb {
+        background-color: transparent;
+        margin-bottom: 1rem;
+        padding: 10px; /* Thêm padding */
+        border-radius: 5px; /* Bo tròn góc */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    }
+
+    .breadcrumb-item {
+        font-size: 16px; /* Kích thước chữ */
+        color: #007bff; /* Màu sắc mặc định cho liên kết */
+        transition: color 0.3s; /* Hiệu ứng chuyển màu */
+    }
+
+    .breadcrumb-item a {
+        text-decoration: none; /* Bỏ gạch chân */
+    }
+
+    .breadcrumb-item a:hover {
+        color: #0056b3; /* Màu sắc khi hover */
+        text-decoration: underline; /* Gạch chân khi hover */
+    }
+
+    .breadcrumb-item.active {
+        color: #6c757d; /* Màu sắc cho phần hiện tại */
+    }
+</style>

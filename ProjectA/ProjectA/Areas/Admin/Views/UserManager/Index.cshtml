@@ -1,0 +1,450 @@
+﻿@model IEnumerable<ProjectA.Models.ApplicationUser>
+
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    .um-wrap {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        color: #1a1a2e;
+    }
+
+    /* ── Header ── */
+    .um-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .um-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a2e;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+    }
+
+        .um-title .icon-wrap {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 17px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(67,97,238,0.3);
+        }
+
+    .um-count-badge {
+        background: #f0f2ff;
+        color: #4361ee;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 14px;
+        border-radius: 20px;
+        border: 1.5px solid #c5caff;
+    }
+
+    /* ── Add button ── */
+    .btn-um-add {
+        height: 40px;
+        padding: 0 18px;
+        border-radius: 12px;
+        border: none;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: #fff;
+        font-size: 13.5px;
+        font-weight: 600;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        text-decoration: none;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(16,185,129,0.28);
+        transition: opacity 0.18s, transform 0.15s;
+        white-space: nowrap;
+    }
+
+        .btn-um-add:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            color: #fff;
+        }
+
+    /* ── Stats ── */
+    .um-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 24px;
+    }
+
+    .um-stat-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 18px 20px;
+        border: 1.5px solid #eef0f8;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .um-stat-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+        .um-stat-icon.blue {
+            background: #f0f2ff;
+            color: #4361ee;
+        }
+
+        .um-stat-icon.green {
+            background: #f0fdf4;
+            color: #10b981;
+        }
+
+        .um-stat-icon.red {
+            background: #fff0f1;
+            color: #e63946;
+        }
+
+    .um-stat-num {
+        font-size: 22px;
+        font-weight: 800;
+        color: #1a1a2e;
+        line-height: 1;
+    }
+
+    .um-stat-label {
+        font-size: 12px;
+        color: #aaa;
+        margin-top: 2px;
+    }
+
+    /* ── Panel & Table ── */
+    .um-panel {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        border: 1.5px solid #eef0f8;
+        overflow: hidden;
+    }
+
+    .um-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .um-table thead tr {
+            background: #f8f9ff;
+            border-bottom: 2px solid #eef0f8;
+        }
+
+        .um-table thead th {
+            padding: 14px 18px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #aaa;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+            .um-table thead th i {
+                color: #4361ee;
+                margin-right: 5px;
+            }
+
+        .um-table tbody tr {
+            border-bottom: 1px solid #f5f5f8;
+            transition: background 0.15s;
+        }
+
+            .um-table tbody tr:last-child {
+                border-bottom: none;
+            }
+
+            .um-table tbody tr:hover {
+                background: #fafbff;
+            }
+
+        .um-table td {
+            padding: 14px 18px;
+            font-size: 13.5px;
+            color: #444;
+            vertical-align: middle;
+        }
+
+    /* Avatar */
+    .um-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .um-user-cell {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .um-user-name {
+        font-weight: 600;
+        color: #1a1a2e;
+    }
+
+    .um-user-email {
+        font-size: 12px;
+        color: #aaa;
+        margin-top: 1px;
+    }
+
+    /* Status */
+    .um-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+        .um-status.active {
+            background: #f0fdf4;
+            color: #10b981;
+            border: 1.5px solid #a7f3d0;
+        }
+
+        .um-status.inactive {
+            background: #fff0f1;
+            color: #e63946;
+            border: 1.5px solid #ffc5c8;
+        }
+
+    /* Actions */
+    .um-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .btn-um-edit {
+        height: 34px;
+        padding: 0 12px;
+        border-radius: 10px;
+        background: #fff8e8;
+        border: 1.5px solid #fde68a;
+        color: #d97706;
+        font-size: 12.5px;
+        font-weight: 600;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.18s, color 0.18s, border-color 0.18s;
+        white-space: nowrap;
+    }
+
+        .btn-um-edit:hover {
+            background: #d97706;
+            color: #fff;
+            border-color: #d97706;
+        }
+
+    .btn-um-del {
+        height: 34px;
+        width: 34px;
+        border-radius: 10px;
+        background: #fff0f1;
+        border: 1.5px solid #ffc5c8;
+        color: #e63946;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        transition: background 0.18s, color 0.18s, border-color 0.18s;
+    }
+
+        .btn-um-del:hover {
+            background: #e63946;
+            color: #fff;
+            border-color: #e63946;
+        }
+
+    /* Empty */
+    .um-empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: #ccc;
+    }
+
+        .um-empty i {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+    @@media (max-width: 768px) {
+        .um-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .um-table td, .um-table th {
+            padding: 10px 12px;
+        }
+    }
+</style>
+
+<div class="um-wrap">
+
+    <!-- Header -->
+    <div class="um-header">
+        <h2 class="um-title">
+            <span class="icon-wrap"><i class="fas fa-users"></i></span>
+            Quản lý người dùng
+        </h2>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <span class="um-count-badge">@Model.Count() người dùng</span>
+            <a asp-action="Create" class="btn-um-add">
+                <i class="fas fa-user-plus"></i> Thêm người dùng
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    @{
+        int totalUsers = Model.Count();
+        int activeUsers = Model.Count(u => u.LockoutEnabled);
+        int lockedUsers = Model.Count(u => !u.LockoutEnabled);
+    }
+    <div class="um-stats">
+        <div class="um-stat-card">
+            <div class="um-stat-icon blue"><i class="fas fa-users"></i></div>
+            <div>
+                <div class="um-stat-num">@totalUsers</div>
+                <div class="um-stat-label">Tổng người dùng</div>
+            </div>
+        </div>
+        <div class="um-stat-card">
+            <div class="um-stat-icon green"><i class="fas fa-user-check"></i></div>
+            <div>
+                <div class="um-stat-num">@activeUsers</div>
+                <div class="um-stat-label">Đang hoạt động</div>
+            </div>
+        </div>
+        <div class="um-stat-card">
+            <div class="um-stat-icon red"><i class="fas fa-user-slash"></i></div>
+            <div>
+                <div class="um-stat-num">@lockedUsers</div>
+                <div class="um-stat-label">Không hoạt động</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="um-panel">
+        <table class="um-table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-user"></i> Người dùng</th>
+                    <th><i class="fas fa-toggle-on"></i> Trạng thái</th>
+                    <th><i class="fas fa-cog"></i> Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="3">
+                            <div class="um-empty">
+                                <i class="fas fa-users-slash"></i>
+                                <p>Chưa có người dùng nào</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var user in Model)
+                    {
+                        // Lấy chữ cái đầu làm avatar
+                        string initial = (!string.IsNullOrEmpty(user.Name) ? user.Name[0].ToString() :
+                        !string.IsNullOrEmpty(user.Email) ? user.Email[0].ToString() : "U").ToUpper();
+
+                        <tr>
+                            <td>
+                                <div class="um-user-cell">
+                                    <div class="um-avatar">@initial</div>
+                                    <div>
+                                        <div class="um-user-name">@(string.IsNullOrEmpty(user.Name) ? "Chưa đặt tên" : user.Name)</div>
+                                        <div class="um-user-email">@user.Email</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                @if (user.LockoutEnabled)
+                                {
+                                    <span class="um-status active">
+                                        <i class="fas fa-circle" style="font-size:8px;"></i> Đang hoạt động
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="um-status inactive">
+                                        <i class="fas fa-circle" style="font-size:8px;"></i> Không hoạt động
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                <div class="um-actions">
+                                    <a asp-action="Edit" asp-route-id="@user.Id" class="btn-um-edit">
+                                        <i class="fas fa-edit"></i> Chỉnh sửa
+                                    </a>
+                                    <form asp-action="Delete" asp-route-id="@user.Id" method="post" style="margin:0;"
+                                          onsubmit="return confirm('Bạn có chắc muốn xóa người dùng này?')">
+                                        <button type="submit" class="btn-um-del" title="Xóa người dùng">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

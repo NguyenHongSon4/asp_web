@@ -1,0 +1,95 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BaiKiemTra03_02
+build_property.RootNamespace = BaiKiemTra03_02
+build_property.ProjectDir = D:\Lap Trinh Web\asp_web\BaiKiemTra03_02\BaiKiemTra03_02\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = D:\Lap Trinh Web\asp_web\BaiKiemTra03_02\BaiKiemTra03_02
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Sach/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Sach/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Sach/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Sach/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Sach/Upsert.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaFxVcHNlcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/TacGia/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFjR2lhXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/TacGia/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFjR2lhXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/TacGia/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFjR2lhXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/TacGia/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFjR2lhXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/TacGia/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFjR2lhXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Lap Trinh Web/asp_web/BaiKiemTra03_02/BaiKiemTra03_02/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-9it77jhw5v

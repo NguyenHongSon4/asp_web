@@ -1,0 +1,653 @@
+﻿@model IEnumerable<ProjectA.Models.SanPham>
+@{
+    string keyword = ViewBag.Keyword ?? "";
+    int total = Model?.Count() ?? 0;
+}
+
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    /* ── Page header ── */
+    .sr-header {
+        margin-bottom: 24px;
+    }
+
+    .sr-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a2e;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 6px;
+    }
+
+        .sr-title .icon-wrap {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+    .sr-keyword {
+        color: #4361ee;
+        font-style: italic;
+    }
+
+    .sr-meta {
+        font-size: 13.5px;
+        color: #aaa;
+        margin-left: 48px;
+    }
+
+        .sr-meta strong {
+            color: #4361ee;
+        }
+
+    /* ── Filter bar ── */
+    .sr-filter-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 14px 18px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        border: 1.5px solid #eef0f8;
+    }
+
+    .sr-filter-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+        .sr-filter-label i {
+            color: #4361ee;
+        }
+
+    .sr-filter-btn {
+        padding: 7px 14px;
+        border-radius: 50px;
+        border: 1.5px solid #eee;
+        background: #fafbff;
+        color: #555;
+        font-size: 12.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        transition: all 0.18s;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+    }
+
+        .sr-filter-btn:hover {
+            border-color: #4361ee;
+            color: #4361ee;
+            background: #f0f2ff;
+        }
+
+        .sr-filter-btn.active {
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 3px 10px rgba(67,97,238,0.25);
+        }
+
+    .sr-filter-divider {
+        width: 1px;
+        height: 20px;
+        background: #eee;
+        flex-shrink: 0;
+    }
+
+    /* Price filter */
+    .sr-price-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .sr-price-input {
+        width: 110px;
+        height: 34px;
+        padding: 0 10px;
+        border: 1.5px solid #eee;
+        border-radius: 50px;
+        font-size: 12px;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        outline: none;
+        background: #fafbff;
+        color: #333;
+        transition: border-color 0.18s;
+    }
+
+        .sr-price-input:focus {
+            border-color: #4361ee;
+        }
+
+        .sr-price-input::placeholder {
+            color: #ccc;
+        }
+
+    .sr-price-sep {
+        font-size: 12px;
+        color: #aaa;
+    }
+
+    .sr-price-btn {
+        padding: 6px 14px;
+        border-radius: 50px;
+        border: none;
+        background: #4361ee;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        transition: opacity 0.18s;
+    }
+
+        .sr-price-btn:hover {
+            opacity: 0.85;
+        }
+
+    /* Re-search box */
+    .sr-new-search {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+        .sr-new-search input {
+            height: 36px;
+            padding: 0 12px 0 34px;
+            border: 1.5px solid #eee;
+            border-radius: 50px;
+            font-size: 13px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            width: 200px;
+            outline: none;
+            background: #fafbff;
+            color: #333;
+            transition: border-color 0.18s, width 0.25s;
+        }
+
+            .sr-new-search input:focus {
+                border-color: #4361ee;
+                width: 240px;
+            }
+
+            .sr-new-search input::placeholder {
+                color: #ccc;
+            }
+
+    .sr-new-search-icon {
+        position: absolute;
+        left: 11px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #bbb;
+        font-size: 12px;
+        pointer-events: none;
+    }
+
+    .sr-new-search-wrap {
+        position: relative;
+    }
+
+    /* ── Grid ── */
+    .sr-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    /* ── Card ── */
+    .sr-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        border: 1.5px solid #eef0f8;
+        overflow: hidden;
+        transition: transform 0.22s, box-shadow 0.22s;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .sr-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 36px rgba(67,97,238,0.12);
+        }
+
+    .sr-card-img {
+        position: relative;
+        overflow: hidden;
+        height: 180px;
+        background: #f8f9ff;
+        flex-shrink: 0;
+    }
+
+        .sr-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+            transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+            display: block;
+        }
+
+    .sr-card:hover .sr-card-img img {
+        transform: scale(1.08);
+    }
+
+    .sr-card-body {
+        padding: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sr-card-name {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #1a1a2e;
+        margin-bottom: 4px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.5;
+    }
+
+    .sr-card-price {
+        font-size: 15px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 14px;
+    }
+
+    .sr-card-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+    }
+
+    .btn-sr-buy {
+        flex: 1;
+        padding: 10px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: opacity 0.18s, transform 0.15s;
+        box-shadow: 0 3px 10px rgba(67,97,238,0.22);
+    }
+
+        .btn-sr-buy:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            color: #fff;
+        }
+
+    .btn-sr-fav {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: #fff0f1;
+        border: 1.5px solid #ffc5c8;
+        color: #e63946;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.18s, color 0.18s, border-color 0.18s;
+        flex-shrink: 0;
+    }
+
+        .btn-sr-fav:hover, .btn-sr-fav.added {
+            background: #e63946;
+            color: #fff;
+            border-color: #e63946;
+        }
+
+    /* Empty state */
+    .sr-empty {
+        text-align: center;
+        padding: 60px 20px;
+        background: #fff;
+        border-radius: 20px;
+        border: 1.5px dashed #e0e3f0;
+    }
+
+        .sr-empty i {
+            font-size: 48px;
+            color: #d0d5f0;
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .sr-empty h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+
+        .sr-empty p {
+            font-size: 13.5px;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+    .sr-empty-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 24px;
+        border-radius: 50px;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        color: #fff;
+        font-size: 13.5px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 4px 14px rgba(67,97,238,0.28);
+        transition: opacity 0.18s, transform 0.15s;
+    }
+
+        .sr-empty-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+    /* No results (filter) */
+    .sr-no-filter {
+        text-align: center;
+        padding: 40px;
+        color: #bbb;
+        font-size: 14px;
+        display: none;
+        grid-column: 1/-1;
+    }
+
+        .sr-no-filter i {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+    /* Toast */
+    .sr-toast {
+        position: fixed;
+        bottom: 80px;
+        right: 24px;
+        background: #1a1a2e;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 14px;
+        font-size: 13.5px;
+        font-weight: 500;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .sr-toast.show {
+            display: flex;
+        }
+
+        .sr-toast i {
+            color: #10b981;
+            font-size: 16px;
+        }
+
+    @@media (max-width: 768px) {
+        .sr-filter-bar {
+            gap: 8px;
+        }
+
+        .sr-new-search {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .sr-new-search-wrap input {
+            width: 100% !important;
+        }
+
+        .sr-price-input {
+            width: 90px;
+        }
+
+        .sr-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .sr-card-img {
+            height: 140px;
+        }
+    }
+</style>
+
+<!-- Toast -->
+<div class="sr-toast" id="srToast">
+    <i class="fas fa-check-circle"></i>
+    <span id="srToastMsg">Đã thêm vào yêu thích!</span>
+</div>
+
+<!-- Page header -->
+<div class="sr-header">
+    <div class="sr-title">
+        <span class="icon-wrap"><i class="fas fa-search"></i></span>
+        Kết quả tìm kiếm cho <span class="sr-keyword">&ldquo;@keyword&rdquo;</span>
+    </div>
+    <div class="sr-meta">
+        Tìm thấy <strong id="resultCount">@total</strong> sản phẩm
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="sr-empty">
+        <i class="fas fa-search-minus"></i>
+        <h3>Không tìm thấy sản phẩm</h3>
+        <p>Không có sản phẩm nào khớp với từ khóa <strong>"@keyword"</strong>.<br>Hãy thử từ khóa khác hoặc quay về trang chủ.</p>
+        <a href="/" class="sr-empty-btn"><i class="fas fa-home"></i> Về trang chủ</a>
+    </div>
+}
+else
+{
+    <!-- Filter bar -->
+    <div class="sr-filter-bar">
+        <span class="sr-filter-label"><i class="fas fa-sliders-h"></i> Sắp xếp</span>
+
+        <button class="sr-filter-btn active" onclick="sortSR('default', this)">
+            <i class="fas fa-th-large"></i> Mặc định
+        </button>
+        <button class="sr-filter-btn" onclick="sortSR('name-asc', this)">
+            <i class="fas fa-sort-alpha-down"></i> A → Z
+        </button>
+        <button class="sr-filter-btn" onclick="sortSR('name-desc', this)">
+            <i class="fas fa-sort-alpha-up"></i> Z → A
+        </button>
+
+        <div class="sr-filter-divider"></div>
+
+        <button class="sr-filter-btn" onclick="sortSR('price-asc', this)">
+            <i class="fas fa-arrow-up"></i> Giá thấp
+        </button>
+        <button class="sr-filter-btn" onclick="sortSR('price-desc', this)">
+            <i class="fas fa-arrow-down"></i> Giá cao
+        </button>
+
+        <div class="sr-filter-divider"></div>
+
+        <div class="sr-price-wrap">
+            <input type="number" class="sr-price-input" id="srPriceMin" placeholder="Giá từ...">
+            <span class="sr-price-sep">—</span>
+            <input type="number" class="sr-price-input" id="srPriceMax" placeholder="Đến...">
+            <button class="sr-price-btn" onclick="filterSRPrice()">
+                <i class="fas fa-filter"></i> Lọc
+            </button>
+        </div>
+
+        <!-- Tìm lại -->
+        <div class="sr-new-search">
+            <div class="sr-new-search-wrap">
+                <i class="fas fa-search sr-new-search-icon"></i>
+                <input type="text" placeholder="Tìm kiếm khác..."
+                       value="@keyword"
+                       onkeydown="if(event.key==='Enter') window.location.href='/Customers/Home/SearchPage?q='+encodeURIComponent(this.value)">
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="sr-grid" id="srGrid">
+        @foreach (var item in Model)
+        {
+            <div class="sr-card"
+                 data-name="@item.Name.ToLower()"
+                 data-price="@item.price">
+
+                <div class="sr-card-img">
+                    <a asp-area="Customers" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                        <img src="@item.ImageUrl" alt="@item.Name">
+                    </a>
+                </div>
+                <div class="sr-card-body">
+                    <div class="sr-card-name">@item.Name</div>
+                    <div class="sr-card-price">
+                        @item.price.ToString("N0").Replace("'", ".")đ
+                    </div>
+                    <div class="sr-card-actions">
+                        <a asp-area="Customers" asp-controller="Home" asp-action="Details"
+                           asp-route-id="@item.Id" class="btn-sr-buy">
+                            <i class="fas fa-shopping-cart"></i> Mua hàng
+                        </a>
+                        <button class="btn-sr-fav add-to-favorites"
+                                data-sanpham-id="@item.Id"
+                                title="Thêm vào yêu thích">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="sr-no-filter" id="srNoFilter">
+            <i class="fas fa-filter"></i> Không có sản phẩm phù hợp với bộ lọc
+        </div>
+    </div>
+}
+
+<script>
+    const srGrid = document.getElementById('srGrid');
+    if (srGrid) {
+        let srDefault = Array.from(srGrid.querySelectorAll('.sr-card'));
+        let srFilter = { minPrice: null, maxPrice: null };
+
+        function updateSRCount() {
+            const count = Array.from(srGrid.querySelectorAll('.sr-card')).filter(c => c.style.display !== 'none').length;
+            const el = document.getElementById('resultCount');
+            if (el) el.textContent = count;
+            const noF = document.getElementById('srNoFilter');
+            if (noF) noF.style.display = count === 0 ? 'block' : 'none';
+        }
+
+        function applySRFilters() {
+            srGrid.querySelectorAll('.sr-card').forEach(card => {
+                const price = parseFloat(card.dataset.price) || 0;
+                const minOk = srFilter.minPrice === null || price >= srFilter.minPrice;
+                const maxOk = srFilter.maxPrice === null || price <= srFilter.maxPrice;
+                card.style.display = (minOk && maxOk) ? '' : 'none';
+            });
+            updateSRCount();
+        }
+
+        function sortSR(type, btn) {
+            document.querySelectorAll('.sr-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const cards = Array.from(srGrid.querySelectorAll('.sr-card'));
+            if (type === 'default') {
+                srDefault.forEach(c => srGrid.insertBefore(c, document.getElementById('srNoFilter')));
+            } else {
+                cards.sort((a, b) => {
+                    if (type === 'name-asc')  return a.dataset.name.localeCompare(b.dataset.name, 'vi');
+                    if (type === 'name-desc') return b.dataset.name.localeCompare(a.dataset.name, 'vi');
+                    if (type === 'price-asc') return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                    if (type === 'price-desc') return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                });
+                cards.forEach(c => srGrid.insertBefore(c, document.getElementById('srNoFilter')));
+            }
+            applySRFilters();
+        }
+
+        function filterSRPrice() {
+            const minVal = document.getElementById('srPriceMin').value;
+            const maxVal = document.getElementById('srPriceMax').value;
+            srFilter.minPrice = minVal ? parseFloat(minVal) : null;
+            srFilter.maxPrice = maxVal ? parseFloat(maxVal) : null;
+            applySRFilters();
+        }
+
+        // Toast
+        function showSRToast(msg) {
+            const t = document.getElementById('srToast');
+            document.getElementById('srToastMsg').textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        // Yêu thích AJAX
+        $(document).on('click', '.add-to-favorites', function(e) {
+            e.preventDefault();
+            const btn = $(this);
+            const id = btn.data('sanpham-id');
+            btn.prop('disabled', true);
+            $.ajax({
+                url: '/Customers/FavoriteProduct/AddToFavorites',
+                type: 'POST', data: { sanPhamId: id },
+                success: function(r) { showSRToast(r.message || 'Đã thêm vào yêu thích!'); btn.addClass('added'); },
+                error: function()    { showSRToast('Có lỗi xảy ra.'); },
+                complete: function() { setTimeout(() => btn.prop('disabled', false), 1000); }
+            });
+        });
+
+        updateSRCount();
+    }
+</script>

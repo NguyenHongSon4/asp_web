@@ -1,0 +1,1160 @@
+﻿@model GioHang
+@using System.Security.Claims
+
+@{
+    var danhGias = ViewBag.DanhGias as List<ProjectA.Models.DanhGia> ?? new List<ProjectA.Models.DanhGia>();
+    var trungBinhSao = danhGias.Any() ? danhGias.Average(d => d.SoSao) : 0;
+    var isLoggedIn = User.Identity?.IsAuthenticated ?? false;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #f0f2f5;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        color: #1a1a2e;
+    }
+
+    .pd-wrapper {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 20px 60px;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin-bottom: 24px;
+        font-size: 13px;
+    }
+
+    .breadcrumb-item a {
+        color: #4361ee;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+        .breadcrumb-item a:hover {
+            color: #3a0ca3;
+        }
+
+    .breadcrumb-item.active {
+        color: #888;
+    }
+
+    /* Panel */
+    .pd-panel {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        overflow: hidden;
+    }
+
+    /* Image side */
+    .pd-image-wrap {
+        padding: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fafbff;
+        border-right: 1px solid #f0f2f5;
+        min-height: 480px;
+        position: sticky;
+        top: 80px;
+    }
+
+    .pd-image {
+        max-width: 100%;
+        max-height: 400px;
+        object-fit: contain;
+        border-radius: 12px;
+        transition: transform 0.5s ease;
+    }
+
+        .pd-image:hover {
+            transform: scale(1.05);
+        }
+
+    /* Info side */
+    .pd-info {
+        padding: 36px;
+    }
+
+    .pd-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        background: #f0f2ff;
+        color: #4361ee;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 14px;
+    }
+
+    .pd-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #1a1a2e;
+        line-height: 1.3;
+        margin-bottom: 10px;
+    }
+
+    /* Star rating display */
+    .pd-rating-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .stars-display {
+        color: #f59e0b;
+        font-size: 15px;
+        letter-spacing: 1px;
+    }
+
+    .rating-count {
+        font-size: 13px;
+        color: #888;
+    }
+
+    .pd-price {
+        font-size: 28px;
+        font-weight: 700;
+        color: #e63946;
+        margin-bottom: 24px;
+    }
+
+        .pd-price sup {
+            font-size: 16px;
+            vertical-align: super;
+        }
+
+    /* Specs */
+    .specs-title {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #aaa;
+        margin-bottom: 12px;
+    }
+
+    .specs-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 28px;
+    }
+
+    .spec-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 13px;
+        background: #fafbff;
+        border: 1.5px solid #eef0f6;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #555;
+        transition: border-color 0.18s, transform 0.18s;
+    }
+
+        .spec-chip:hover {
+            border-color: #4361ee;
+            transform: translateY(-2px);
+        }
+
+        .spec-chip i {
+            color: #4361ee;
+            font-size: 12px;
+        }
+
+    /* Divider */
+    .pd-divider {
+        border: none;
+        border-top: 1.5px solid #f0f2f5;
+        margin: 24px 0;
+    }
+
+    /* Quantity */
+    .section-label {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #aaa;
+        margin-bottom: 10px;
+    }
+
+    .qty-control {
+        display: inline-flex;
+        align-items: center;
+        background: #f5f5f8;
+        border-radius: 50px;
+        padding: 5px;
+        gap: 2px;
+        margin-bottom: 24px;
+    }
+
+    .qty-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: none;
+        background: #fff;
+        color: #4361ee;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        transition: background 0.18s, color 0.18s, transform 0.12s;
+        line-height: 1;
+    }
+
+        .qty-btn:hover {
+            background: #4361ee;
+            color: #fff;
+            transform: scale(1.08);
+        }
+
+    .qty-input {
+        width: 44px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 700;
+        border: none;
+        background: transparent;
+        color: #1a1a2e;
+        pointer-events: none;
+    }
+
+    /* Action buttons */
+    .action-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 28px;
+    }
+
+    .btn-buy {
+        flex: 1;
+        padding: 14px 20px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(135deg, #e63946, #c1121f);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 14px rgba(230,57,70,0.3);
+        transition: opacity 0.2s, transform 0.15s;
+        letter-spacing: 0.03em;
+    }
+
+        .btn-buy:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+    .btn-cart {
+        flex: 1;
+        padding: 14px 20px;
+        border-radius: 14px;
+        border: 2px solid #4361ee;
+        background: transparent;
+        color: #4361ee;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: background 0.18s, color 0.18s, transform 0.15s;
+        letter-spacing: 0.03em;
+    }
+
+        .btn-cart:hover {
+            background: #4361ee;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+    /* Trust badges */
+    .trust-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding-top: 20px;
+        border-top: 1.5px solid #f0f2f5;
+    }
+
+    .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #666;
+    }
+
+        .trust-item i {
+            color: #10b981;
+            font-size: 14px;
+        }
+
+    /* ══ REVIEW SECTION ════════════════════════════════════ */
+    .rv-section {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        padding: 32px;
+        margin-top: 28px;
+    }
+
+    .rv-section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .rv-section-title .icon-wrap {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+    /* Summary bar */
+    .rv-summary {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        background: #fafbff;
+        border: 1.5px solid #eef0f6;
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin: 20px 0 28px;
+    }
+
+    .rv-big-score {
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+        .rv-big-score .score-num {
+            font-size: 48px;
+            font-weight: 700;
+            color: #f59e0b;
+            line-height: 1;
+        }
+
+        .rv-big-score .score-max {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .rv-big-score .stars-display {
+            font-size: 18px;
+            margin: 4px 0;
+        }
+
+        .rv-big-score .rv-count {
+            font-size: 13px;
+            color: #888;
+        }
+
+    .rv-bars {
+        flex: 1;
+    }
+
+    .rv-bar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 6px;
+        font-size: 13px;
+        color: #888;
+    }
+
+        .rv-bar-row .bar-label {
+            width: 36px;
+            flex-shrink: 0;
+        }
+
+    .rv-bar-track {
+        flex: 1;
+        height: 8px;
+        background: #f0f2f5;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .rv-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #f59e0b, #f97316);
+        border-radius: 20px;
+        transition: width 0.6s ease;
+    }
+
+    .rv-bar-row .bar-count {
+        width: 24px;
+        text-align: right;
+        flex-shrink: 0;
+    }
+
+    /* Review cards */
+    .rv-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 28px;
+    }
+
+    .rv-card {
+        padding: 18px 20px;
+        border: 1.5px solid #f0f2f5;
+        border-radius: 14px;
+        transition: border-color 0.18s, box-shadow 0.18s;
+    }
+
+        .rv-card:hover {
+            border-color: #e0e4ff;
+            box-shadow: 0 4px 16px rgba(67,97,238,0.06);
+        }
+
+    .rv-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+    }
+
+    .rv-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .rv-user-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1a1a2e;
+    }
+
+    .rv-date {
+        font-size: 12px;
+        color: #aaa;
+        margin-top: 2px;
+    }
+
+    .rv-stars {
+        color: #f59e0b;
+        font-size: 13px;
+        letter-spacing: 1px;
+        margin-left: auto;
+    }
+
+    .rv-content {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.7;
+    }
+
+    /* Empty state */
+    .rv-empty {
+        text-align: center;
+        padding: 40px 20px;
+        color: #ccc;
+    }
+
+        .rv-empty i {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .rv-empty p {
+            font-size: 14px;
+        }
+
+    /* Write review form */
+    .rv-form-panel {
+        background: #fafbff;
+        border: 1.5px dashed #d0d8f5;
+        border-radius: 16px;
+        padding: 24px;
+    }
+
+    .rv-form-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .rv-form-title i {
+            color: #4361ee;
+        }
+
+    /* Star picker */
+    .star-picker {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 16px;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+        .star-picker input {
+            display: none;
+        }
+
+        .star-picker label {
+            font-size: 28px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.15s, transform 0.15s;
+        }
+
+            .star-picker label:hover,
+            .star-picker label:hover ~ label,
+            .star-picker input:checked ~ label {
+                color: #f59e0b;
+            }
+
+            .star-picker label:hover {
+                transform: scale(1.2);
+            }
+
+    .rv-textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1.5px solid #eee;
+        border-radius: 12px;
+        font-size: 14px;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        color: #333;
+        resize: vertical;
+        min-height: 100px;
+        outline: none;
+        transition: border-color 0.18s;
+        background: #fff;
+    }
+
+        .rv-textarea:focus {
+            border-color: #4361ee;
+        }
+
+        .rv-textarea::placeholder {
+            color: #bbb;
+        }
+
+    .btn-submit-review {
+        margin-top: 14px;
+        padding: 12px 28px;
+        border-radius: 12px;
+        border: none;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(67,97,238,0.3);
+        transition: opacity 0.2s, transform 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .btn-submit-review:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+    /* Login prompt */
+    .rv-login-prompt {
+        text-align: center;
+        padding: 24px;
+        background: #fafbff;
+        border: 1.5px dashed #d0d8f5;
+        border-radius: 16px;
+        font-size: 14px;
+        color: #888;
+    }
+
+        .rv-login-prompt a {
+            color: #4361ee;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+            .rv-login-prompt a:hover {
+                text-decoration: underline;
+            }
+
+    /* Toast */
+    #cart-toast {
+        position: fixed;
+        top: 80px;
+        right: 24px;
+        z-index: 9999;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a2e;
+        border-left: 4px solid #10b981;
+        transform: translateX(120%);
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        min-width: 260px;
+    }
+
+        #cart-toast.show {
+            transform: translateX(0);
+        }
+
+        #cart-toast i {
+            color: #10b981;
+            font-size: 18px;
+        }
+
+    /* Alert */
+    .rv-alert-success {
+        background: #f0fdf4;
+        border: 1.5px solid #bbf7d0;
+        color: #166534;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 13.5px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .rv-alert-error {
+        background: #fef2f2;
+        border: 1.5px solid #fecaca;
+        color: #991b1b;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 13.5px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Upload widget */
+    .rv-upload-wrap {
+        border: 2px dashed #d0d8f5;
+        border-radius: 12px;
+        padding: 18px;
+        text-align: center;
+        cursor: pointer;
+        background: #fff;
+        transition: border-color 0.18s, background 0.18s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #aaa;
+    }
+
+        .rv-upload-wrap:hover {
+            border-color: #4361ee;
+            background: #f6f8ff;
+            color: #4361ee;
+        }
+
+        .rv-upload-wrap i {
+            font-size: 24px;
+        }
+
+    #upload-preview {
+        max-width: 100%;
+        max-height: 180px;
+        border-radius: 10px;
+        object-fit: cover;
+        margin-top: 4px;
+    }
+
+    /* Review image */
+    .rv-img {
+        margin-top: 10px;
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 1.5px solid #eef0f6;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+        .rv-img:hover {
+            transform: scale(1.02);
+        }
+
+    /* Lightbox */
+    #rv-lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+    }
+
+        #rv-lightbox.show {
+            display: flex;
+        }
+
+        #rv-lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+    #rv-lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 28px;
+        color: #fff;
+        font-size: 32px;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    @@media (max-width: 768px) {
+        .pd-image-wrap {
+            min-height: 280px;
+            padding: 20px;
+            border-right: none;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .pd-info {
+            padding: 20px;
+        }
+
+        .action-row {
+            flex-direction: column;
+        }
+
+        .rv-summary {
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .trust-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- Toast -->
+<div id="cart-toast">
+    <i class="fas fa-check-circle"></i>
+    <span>Đã thêm vào giỏ hàng!</span>
+</div>
+
+<div class="pd-wrapper">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i> Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.SanPham.Name</li>
+        </ol>
+    </nav>
+
+    <!-- ── Product panel ── -->
+    <div class="pd-panel">
+        <form asp-action="Details" asp-controller="Home" method="post" id="product-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="SanPhamId" value="@Model.SanPhamId" />
+
+            <div class="row g-0">
+                <!-- Image -->
+                <div class="col-lg-5">
+                    <div class="pd-image-wrap">
+                        <img src="@Model.SanPham.ImageUrl" alt="@Model.SanPham.Name" class="pd-image">
+                    </div>
+                </div>
+
+                <!-- Info -->
+                <div class="col-lg-7">
+                    <div class="pd-info">
+
+                        <div class="pd-badge">
+                            <i class="fas fa-star"></i> Sản phẩm nổi bật
+                        </div>
+
+                        <h1 class="pd-title">@Model.SanPham.Name</h1>
+
+                        <!-- Rating summary -->
+                        <div class="pd-rating-row">
+                            <span class="stars-display">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= Math.Floor(trungBinhSao))
+                                    {
+                                        <i class="fas fa-star"></i>
+                                    }
+                                    else if (i - trungBinhSao < 1 && i - trungBinhSao > 0)
+                                    {
+                                        <i class="fas fa-star-half-alt"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-star"></i>
+                                    }
+                                }
+                            </span>
+                            <span class="rating-count">
+                                @if (danhGias.Any())
+                                {
+                                    <span>@trungBinhSao.ToString("F1") / 5 &nbsp;·&nbsp; @danhGias.Count đánh giá</span>
+                                }
+                                else
+                                {
+                                    <span>Chưa có đánh giá</span>
+                                }
+                            </span>
+                        </div>
+
+                        <div class="pd-price">
+                            @Model.SanPham.price.ToString("N0")<sup>đ</sup>
+                        </div>
+
+                        <!-- Specs -->
+                        @if (!string.IsNullOrEmpty(Model.SanPham.Description))
+                        {
+                            <div class="specs-title">Thông số kỹ thuật</div>
+                            <div class="specs-wrap">
+                                @foreach (var spec in Model.SanPham.Description.Split(',').Where(s => !string.IsNullOrWhiteSpace(s)))
+                                {
+                                    <div class="spec-chip">
+                                        @if (spec.Contains("i9") || spec.Contains("i7") || spec.Contains("i5") || spec.Contains("Core") || spec.Contains("Ryzen"))
+                                        {
+                                            <i class="fas fa-microchip"></i>
+                                        }
+                                        else if (spec.Contains("RAM"))
+                                        {
+
+                                            <i class="fas fa-memory"></i>
+                                        }
+                                        else if (spec.Contains("SSD") || spec.Contains("HDD") || spec.Contains("TB") || spec.Contains("GB"))
+                                        {
+
+                                            <i class="fas fa-hdd"></i>
+                                        }
+                                        else if (spec.Contains("RTX") || spec.Contains("GTX") || spec.Contains("GPU"))
+                                        {
+
+                                            <i class="fas fa-gamepad"></i>
+                                        }
+                                        else if (spec.Contains("inch") || spec.Contains("màn") || spec.Contains("FHD") || spec.Contains("4K"))
+                                        {
+
+                                            <i class="fas fa-desktop"></i>
+                                        }
+                                        else
+                                        {
+
+                                            <i class="fas fa-info-circle"></i>
+                                        }
+                                        <span>@spec.Trim()</span>
+                                    </div>
+                                }
+                            </div>
+                        }
+
+                        <hr class="pd-divider">
+
+                        <!-- Quantity -->
+                        <div class="section-label">Số lượng</div>
+                        <div class="qty-control">
+                            <button type="button" class="qty-btn" onclick="decreaseQty()">−</button>
+                            <input asp-for="Quantity" type="number" id="quantity"
+                                   class="qty-input" value="@Model.Quantity" min="1" max="99" readonly />
+                            <button type="button" class="qty-btn" onclick="increaseQty()">+</button>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="action-row">
+                            <button type="submit" class="btn-buy" name="action" value="buy">
+                                <i class="fas fa-bolt"></i> Mua ngay
+                            </button>
+                            <button type="submit" class="btn-cart" onclick="addToCart()">
+                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                            </button>
+                        </div>
+
+                        <!-- Trust -->
+                        <div class="trust-grid">
+                            <div class="trust-item"><i class="fas fa-truck"></i> Miễn phí ship đơn &gt; 500k</div>
+                            <div class="trust-item"><i class="fas fa-undo"></i> Đổi trả trong 7 ngày</div>
+                            <div class="trust-item"><i class="fas fa-shield-alt"></i> Bảo hành 12 tháng</div>
+                            <div class="trust-item"><i class="fas fa-headset"></i> Hỗ trợ 24/7</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- ══ REVIEW SECTION ════════════════════════════════════ -->
+    <div class="rv-section">
+
+        <div class="rv-section-title">
+            <span class="icon-wrap"><i class="fas fa-star"></i></span>
+            Đánh giá & Nhận xét
+        </div>
+
+        <!-- Alerts -->
+        @if (TempData["DanhGiaSuccess"] != null)
+        {
+            <div class="rv-alert-success">
+                <i class="fas fa-check-circle"></i> @TempData["DanhGiaSuccess"]
+            </div>
+        }
+        @if (TempData["DanhGiaError"] != null)
+        {
+            <div class="rv-alert-error">
+                <i class="fas fa-exclamation-circle"></i> @TempData["DanhGiaError"]
+            </div>
+        }
+
+        <!-- Summary -->
+        @{
+            var starCounts = new int[6];
+            foreach (var d in danhGias) { if (d.SoSao >= 1 && d.SoSao <= 5) starCounts[d.SoSao]++; }
+        }
+        <div class="rv-summary">
+            <div class="rv-big-score">
+                <div class="score-num">@(danhGias.Any() ? trungBinhSao.ToString("F1") : "—")</div>
+                <div class="stars-display">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <i class="@(i <= Math.Round(trungBinhSao) ? "fas" : "far") fa-star"></i>
+                    }
+                </div>
+                <div class="rv-count">@danhGias.Count lượt đánh giá</div>
+            </div>
+            <div class="rv-bars">
+                @for (int s = 5; s >= 1; s--)
+                {
+                    var pct = danhGias.Any() ? (starCounts[s] * 100.0 / danhGias.Count) : 0;
+                    <div class="rv-bar-row">
+                        <span class="bar-label"><i class="fas fa-star" style="color:#f59e0b;font-size:11px;"></i> @s</span>
+                        <div class="rv-bar-track">
+                            <div class="rv-bar-fill" style="width:@pct.ToString("F0")%"></div>
+                        </div>
+                        <span class="bar-count">@starCounts[s]</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Review list -->
+        <div class="rv-list">
+            @if (!danhGias.Any())
+            {
+                <div class="rv-empty">
+                    <i class="far fa-comment-dots"></i>
+                    <p>Chưa có đánh giá nào. Hãy là người đầu tiên!</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var dg in danhGias.OrderByDescending(d => d.NgayDang))
+                {
+                    <div class="rv-card">
+                        <div class="rv-card-header">
+                            <div class="rv-avatar">@dg.TenNguoiDung.Substring(0, 1).ToUpper()</div>
+                            <div>
+                                <div class="rv-user-name">@dg.TenNguoiDung</div>
+                                <div class="rv-date">@dg.NgayDang.ToString("dd/MM/yyyy HH:mm")</div>
+                            </div>
+                            <div class="rv-stars">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <i class="@(i <= dg.SoSao ? "fas" : "far") fa-star"></i>
+                                }
+                            </div>
+                        </div>
+                        <div class="rv-content">@dg.NoiDung</div>
+                        @if (!string.IsNullOrEmpty(dg.AnhUrl))
+                        {
+                            <img src="@dg.AnhUrl" alt="Ảnh đánh giá" class="rv-img"
+                                 onclick="openLightbox(this.src)">
+                        }
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- Write review -->
+        @if (isLoggedIn)
+        {
+            <div class="rv-form-panel">
+                <div class="rv-form-title">
+                    <i class="fas fa-pen"></i> Viết đánh giá của bạn
+                </div>
+                <form asp-area="Customers" asp-controller="DanhGia" asp-action="GuiDanhGia" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="SanPhamId" value="@Model.SanPhamId" />
+
+                    <div class="section-label" style="margin-bottom:8px;">Số sao</div>
+                    <div class="star-picker">
+                        @for (int i = 5; i >= 1; i--)
+                        {
+                            <input type="radio" name="SoSao" id="star@(i)" value="@i" required>
+                            <label for="star@(i)" title="@i sao"><i class="fas fa-star"></i></label>
+                        }
+                    </div>
+
+                    <div class="section-label" style="margin-bottom:8px;">Nội dung nhận xét</div>
+                    <textarea name="NoiDung" class="rv-textarea"
+                          placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..." required maxlength="1000"></textarea>
+
+                    <div class="section-label" style="margin:14px 0 8px;">Ảnh minh họa <span style="font-weight:400;text-transform:none;color:#bbb;">(không bắt buộc, tối đa 5MB)</span></div>
+                    <div class="rv-upload-wrap" id="upload-wrap" onclick="document.getElementById('anhUpload').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span id="upload-label">Nhấn để chọn ảnh JPG / PNG / WebP</span>
+                        <img id="upload-preview" src="" alt="preview" style="display:none;">
+                    </div>
+                    <input type="file" name="AnhMinhHoa" id="anhUpload"
+                           accept=".jpg,.jpeg,.png,.webp" style="display:none;"
+                           onchange="previewImage(this)">
+
+                    <button type="submit" class="btn-submit-review">
+                        <i class="fas fa-paper-plane"></i> Gửi đánh giá
+                    </button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="rv-login-prompt">
+                <i class="fas fa-lock" style="font-size:24px;margin-bottom:10px;display:block;"></i>
+                Vui lòng <a asp-area="Identity" asp-page="/Account/Login">đăng nhập</a>
+                để gửi đánh giá sản phẩm.
+            </div>
+        }
+    </div>
+
+</div>
+
+<!-- Lightbox -->
+<div id="rv-lightbox" onclick="closeLightbox()">
+    <span id="rv-lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img id="rv-lightbox-img" src="" alt="">
+</div>
+
+<script>
+    function openLightbox(src) {
+        document.getElementById('rv-lightbox-img').src = src;
+        document.getElementById('rv-lightbox').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        document.getElementById('rv-lightbox').classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    function previewImage(input) {
+        const wrap = document.getElementById('upload-wrap');
+        const preview = document.getElementById('upload-preview');
+        const label = document.getElementById('upload-label');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                label.textContent = input.files[0].name;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function increaseQty() {
+        const input = document.getElementById('quantity');
+        let val = parseInt(input.value);
+        if (val < 99) input.value = val + 1;
+    }
+
+    function decreaseQty() {
+        const input = document.getElementById('quantity');
+        let val = parseInt(input.value);
+        if (val > 1) input.value = val - 1;
+    }
+
+    function addToCart() {
+        const form = document.getElementById('product-form');
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        }).then(() => {
+            const toast = document.getElementById('cart-toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        });
+    }
+</script>

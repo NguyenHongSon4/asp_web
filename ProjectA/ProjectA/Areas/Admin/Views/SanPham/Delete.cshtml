@@ -1,0 +1,27 @@
+﻿@model TheLoai
+
+<div class="container">
+    <h3>Bạn có chắc muốn xóa thể loại này?</h3>
+    <form method="post" asp-action="DeleteConfirm">
+    <input asp-for="Id" type="hidden" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <lable asp-for="Name">Tên thể loại </lable>
+        <input asp-for="Name" type="text" class="form-control" readonly/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="DateCreated">Ngày tạo </lable>
+        <input asp-for="DateCreated" type="date" class="form-control" readonly/>
+        <span asp-validation-for="DateCreated" class="text-danger"></span>
+
+        <button type="submit" class="btn btn-primary">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

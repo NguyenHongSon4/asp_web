@@ -1,0 +1,116 @@
+@font-face {
+font-family: 'MyriadSetPro-Medium';
+src: url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Medium.eot?#iefix) format('embedded-opentype'),  url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Medium.woff) format('woff'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Medium.ttf)  format('truetype'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Medium.svg#MyriadSetPro-Medium) format('svg');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'MyriadSetPro-Bold';
+src: url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Bold.eot?#iefix) format('embedded-opentype'),  url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Bold.woff) format('woff'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Bold.ttf)  format('truetype'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Bold.svg#MyriadSetPro-Bold) format('svg');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'MyriadSetPro-Semibold';
+src: url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Semibold.eot?#iefix) format('embedded-opentype'),  url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Semibold.woff) format('woff'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Semibold.ttf)  format('truetype'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Semibold.svg#MyriadSetPro-Semibold) format('svg');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'MyriadSetPro-Text';
+src: url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Text.eot?#iefix) format('embedded-opentype'),  url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Text.woff) format('woff'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Text.ttf)  format('truetype'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Text.svg#MyriadSetPro-Text) format('svg');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'MyriadSetPro-Thin';
+src: url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Thin.eot?#iefix) format('embedded-opentype'),  url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Thin.woff) format('woff'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Thin.ttf)  format('truetype'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Thin.svg#MyriadSetPro-Thin) format('svg');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'MyriadSetPro-Ultralight';
+src: url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Ultralight.eot?#iefix) format('embedded-opentype'),  url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Ultralight.woff) format('woff'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Ultralight.ttf)  format('truetype'), url(//macstores.vn/wp-content/themes/deploy-child/fonts/MyriadSetPro-Ultralight.svg#MyriadSetPro-Ultralight) format('svg');
+font-weight: normal;
+font-style: normal;
+}
+body {
+font-family: Roboto, serif !important;
+}
+.mkdf-drop-down .second .inner ul li a, 
+.mkdf-drop-down .second .inner ul li a,
+.button,
+.woocommerce-Price-amount,
+.mkdf-btn .mkdf-btn-text,
+.woocommerce-cart .woocommerce form:not(.woocommerce-shipping-calculator) .product-name a,
+.woocommerce-cart .woocommerce form:not(.woocommerce-shipping-calculator) thead,
+.mkdf-woocommerce-page .quantity.mkdf-quantity-buttons .mkdf-quantity-input,
+.woocommerce-cart .woocommerce form:not(.woocommerce-shipping-calculator) .actions .coupon input[type=text],
+input[type=submit].mkdf-btn,
+.woocommerce-cart .woocommerce .cart-collaterals .mkdf-cart-totals table th,
+.mkdf-search-dropdown .mkdf-search-dropdown-holder input[type=text],
+footer .widget.mkdf-footer-bottom-left.widget_text,
+{
+font-family: Roboto, serif !important;
+}
+@media screen and (min-width: 400px){
+.mkdf-search-dropdown .mkdf-search-dropdown-holder
+{
+min-width: 250px !important;
+}
+}
+.mkdf-woo-product-list-item-holder a{
+}
+.product-addon .form-row {	
+overflow: hidden;
+word-wrap: break-word;
+margin-bottom: 15px;
+width: 70%;	
+}
+.product-addon .form-row label{ 
+width: 100%;
+display: block;
+padding: 30px;
+border: 1px solid #d6d6d6;
+border-radius: 4px;
+box-sizing: border-box;
+cursor: pointer;
+}
+.product-addon .form-row label input{ 
+opacity: 0;
+}
+.product-addon .form-row.checked label { 
+border-color: #0070c9;
+}
+.product-addon .form-row:hover label{
+border-color: #0070c9;
+}
+.product-addon-totals, .product-addon-totals dt {
+font-size: 20px;
+}
+.single-product .mkdf-content-inner {
+padding-bottom: 2px;
+}
+.mkdf-content-single-product-wrapper {
+margin-bottom: 20px;	
+}
+@media (min-width: 768px){
+.col-sm-5 {
+width: 41.66666667%;
+float: left;
+}
+.col-sm-7 {
+width: 56.33333333%;
+float: left;
+padding-right: 2%;
+}
+}
+.display-short-des .woocommerce ul.products .product .mkdf-product-list-product-title {
+text-align: center;
+}
+.mkdf-woocommerce-page .price, .woocommerce .price{
+text-align: center;
+}
+.display-short-des .mkdf-btn.mkdf-btn-woocommerce{
+margin: auto 88px !important;
+}

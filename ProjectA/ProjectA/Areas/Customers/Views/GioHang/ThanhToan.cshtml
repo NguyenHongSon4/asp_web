@@ -1,0 +1,911 @@
+﻿@model GioHangViewModel
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #f0f2f5;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        color: #1a1a2e;
+    }
+
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin-bottom: 0;
+        font-size: 13px;
+        color: #888;
+    }
+
+    .breadcrumb-item a {
+        color: #4361ee;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+        .breadcrumb-item a:hover {
+            color: #3a0ca3;
+        }
+
+    /* ── Wrapper ── */
+    .tt-wrapper {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 32px 20px 60px;
+    }
+
+    .tt-page-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .tt-page-title .icon-wrap {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+    /* ── Panel ── */
+    .tt-panel {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        padding: 28px;
+        height: 100%;
+    }
+
+    .tt-panel-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 22px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .tt-panel-title i {
+            color: #4361ee;
+        }
+
+    /* ── Form ── */
+    .tt-form-group {
+        margin-bottom: 18px;
+    }
+
+        .tt-form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #aaa;
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            .tt-form-group label i {
+                color: #4361ee;
+                font-size: 12px;
+            }
+
+    .tt-input {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid #eee;
+        border-radius: 12px;
+        font-size: 14px;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        color: #1a1a2e;
+        outline: none;
+        transition: border-color 0.18s, box-shadow 0.18s;
+        background: #fafbff;
+    }
+
+        .tt-input:focus {
+            border-color: #4361ee;
+            box-shadow: 0 0 0 3px rgba(67,97,238,0.1);
+            background: #fff;
+        }
+
+        .tt-input::placeholder {
+            color: #c0c4d4;
+        }
+
+    /* ── Shipping ── */
+    .section-label {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #aaa;
+        margin: 20px 0 10px;
+    }
+
+    .ship-method-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 16px;
+        border: 1.5px solid #eee;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-bottom: 8px;
+        transition: border-color 0.18s, background 0.18s;
+    }
+
+        .ship-method-item:hover {
+            border-color: #4361ee;
+            background: #f6f8ff;
+        }
+
+        .ship-method-item input[type="radio"] {
+            accent-color: #4361ee;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .ship-method-item label {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+            .ship-method-item label i {
+                color: #4361ee;
+                width: 16px;
+                text-align: center;
+            }
+
+    .ship-badge {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+        background: #f0f2ff;
+        color: #4361ee;
+        white-space: nowrap;
+    }
+
+    /* ── Summary rows ── */
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #f5f5f8;
+        font-size: 14px;
+    }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-row .s-label {
+            color: #888;
+        }
+
+        .summary-row .s-value {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .summary-row.total-row {
+            border-top: 2px solid #f0f2f5;
+            padding-top: 14px;
+            margin-top: 6px;
+        }
+
+            .summary-row.total-row .s-label {
+                font-weight: 700;
+                font-size: 15px;
+                color: #1a1a2e;
+            }
+
+            .summary-row.total-row .s-value {
+                font-size: 20px;
+                font-weight: 700;
+                color: #4361ee;
+            }
+
+    /* ── Buttons ── */
+    .btn-order {
+        display: block;
+        width: 100%;
+        margin-top: 22px;
+        padding: 14px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 0.03em;
+        transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+        box-shadow: 0 4px 16px rgba(67,97,238,0.3);
+    }
+
+        .btn-order:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(67,97,238,0.4);
+            color: #fff;
+        }
+
+    .btn-back {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        padding: 12px;
+        border-radius: 14px;
+        background: #f5f5f8;
+        color: #555;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.18s;
+    }
+
+        .btn-back:hover {
+            background: #eaeaf0;
+            color: #333;
+        }
+
+    /* ── QR Modal Overlay ── */
+    #qr-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 15, 35, 0.65);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+    }
+
+        #qr-overlay.active {
+            display: flex;
+        }
+
+    .qr-modal {
+        background: #fff;
+        border-radius: 24px;
+        padding: 36px 32px 28px;
+        max-width: 380px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+        position: relative;
+        animation: slideUp 0.28s ease;
+    }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .qr-close {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        font-size: 22px;
+        color: #bbb;
+        cursor: pointer;
+        line-height: 1;
+        background: none;
+        border: none;
+        transition: color 0.18s;
+    }
+
+        .qr-close:hover {
+            color: #e63946;
+        }
+
+    .qr-logo {
+        width: 44px;
+        height: 44px;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 14px;
+        color: #fff;
+        font-size: 20px;
+    }
+
+    .qr-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 4px;
+    }
+
+    .qr-subtitle {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 20px;
+    }
+
+    .qr-amount {
+        font-size: 22px;
+        font-weight: 700;
+        color: #4361ee;
+        margin-bottom: 20px;
+    }
+
+    /* QR code frame */
+    .qr-frame {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 18px;
+        border-radius: 16px;
+        border: 3px solid #f0f2ff;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .qr-frame img {
+            width: 100%;
+            height: 100%;
+        }
+
+    /* Expired overlay on QR */
+    #qr-expired-overlay {
+        display: none;
+        position: absolute;
+        inset: 0;
+        background: rgba(255,255,255,0.92);
+        border-radius: 13px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #e63946;
+    }
+
+        #qr-expired-overlay i {
+            font-size: 28px;
+        }
+
+        #qr-expired-overlay.show {
+            display: flex;
+        }
+
+    /* Timer */
+    .qr-timer-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .qr-timer-ring {
+        position: relative;
+        width: 52px;
+        height: 52px;
+        flex-shrink: 0;
+    }
+
+        .qr-timer-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .qr-timer-ring circle {
+            fill: none;
+            stroke-width: 4;
+        }
+
+    #timer-track {
+        stroke: #f0f2f5;
+    }
+
+    #timer-progress {
+        stroke: #4361ee;
+        stroke-linecap: round;
+        transition: stroke-dashoffset 1s linear;
+    }
+
+        #timer-progress.warning {
+            stroke: #f77f00;
+        }
+
+        #timer-progress.danger {
+            stroke: #e63946;
+        }
+
+    .qr-timer-num {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: #4361ee;
+        transform: none;
+    }
+
+        .qr-timer-num.warning {
+            color: #f77f00;
+        }
+
+        .qr-timer-num.danger {
+            color: #e63946;
+        }
+
+    .qr-timer-text {
+        font-size: 13px;
+        color: #888;
+    }
+
+    .qr-bank-info {
+        background: #f9fafe;
+        border: 1.5px dashed #d0d8f5;
+        border-radius: 12px;
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+
+        .qr-bank-info .bi-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            color: #555;
+        }
+
+            .qr-bank-info .bi-row strong {
+                color: #1a1a2e;
+            }
+
+    .btn-qr-refresh {
+        width: 100%;
+        padding: 11px;
+        border-radius: 12px;
+        background: #f0f2ff;
+        border: 1.5px solid #c5caff;
+        color: #4361ee;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        transition: background 0.18s;
+    }
+
+        .btn-qr-refresh:hover {
+            background: #4361ee;
+            color: #fff;
+            border-color: #4361ee;
+        }
+
+    .wallet-chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    .wallet-chip {
+        padding: 5px 14px;
+        border-radius: 20px;
+        background: #f0f2ff;
+        border: 1.5px solid #c5caff;
+        color: #4361ee;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    @@media (max-width: 768px) {
+        .tt-panel {
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .qr-modal {
+            padding: 28px 18px 20px;
+        }
+    }
+</style>
+
+<div class="tt-wrapper">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" style="margin-bottom: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a asp-area="Customers" asp-controller="GioHang" asp-action="Index">Giỏ hàng</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
+        </ol>
+    </nav>
+
+    <div class="tt-page-title">
+        <span class="icon-wrap"><i class="fas fa-lock"></i></span>
+        Xác nhận đặt hàng
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ── Cột trái: Form thông tin ── -->
+        <div class="col-lg-7">
+            <div class="tt-panel">
+                <div class="tt-panel-title">
+                    <i class="fas fa-user-circle"></i> Thông tin người nhận
+                </div>
+
+                <form asp-action="ThanhToan" method="POST" id="order-form">
+                    @Html.AntiForgeryToken()
+
+                    <div class="tt-form-group">
+                        <label><i class="fas fa-id-card"></i> Họ tên</label>
+                        <input asp-for="HoaDon.Name" type="text" class="tt-input" placeholder="Nhập họ và tên đầy đủ" required />
+                    </div>
+
+                    <div class="tt-form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Địa chỉ giao hàng</label>
+                        <input asp-for="HoaDon.Address" type="text" class="tt-input" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" required />
+                    </div>
+
+                    <div class="tt-form-group">
+                        <label><i class="fas fa-phone"></i> Số điện thoại</label>
+                        <input asp-for="HoaDon.PhoneNumber" type="text" class="tt-input" placeholder="Nhập số điện thoại liên hệ" required />
+                    </div>
+
+                    <!-- Hidden: shipping cost -->
+                    <input type="hidden" name="ShippingMethod" id="shippingMethod" value="25000" />
+
+                    <!-- Phương thức vận chuyển -->
+                    <div class="section-label">Phương thức vận chuyển</div>
+
+                    <div class="ship-method-item">
+                        <input type="radio" name="shippingRadio" id="shippingStandard" checked
+                               onclick="updateShipping(25000)">
+                        <label for="shippingStandard">
+                            <i class="fas fa-truck"></i> Giao hàng tiêu chuẩn
+                        </label>
+                        <span class="ship-badge">+25.000đ</span>
+                    </div>
+
+                    <div class="ship-method-item">
+                        <input type="radio" name="shippingRadio" id="shippingExpress"
+                               onclick="updateShipping(35000)">
+                        <label for="shippingExpress">
+                            <i class="fas fa-bolt"></i> Giao hàng nhanh
+                        </label>
+                        <span class="ship-badge">+35.000đ</span>
+                    </div>
+
+                    <!-- Nút submit ẩn — được trigger bởi nút bên phải -->
+                    <button type="submit" id="real-submit" style="display:none;"></button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ── Cột phải: Tóm tắt & thanh toán ── -->
+        <div class="col-lg-5">
+            <div class="tt-panel" style="position:sticky; top:20px;">
+                <div class="tt-panel-title">
+                    <i class="fas fa-receipt"></i> Tóm tắt đơn hàng
+                </div>
+
+                <!-- Summary -->
+                <div class="summary-row">
+                    <span class="s-label"><i class="fas fa-box" style="color:#4361ee;margin-right:6px;"></i>Tiền hàng</span>
+                    <span class="s-value" id="product-total">@Model.HoaDon.Total.ToString("N0").Replace("'", ".")đ</span>
+                </div>
+                <div class="summary-row">
+                    <span class="s-label"><i class="fas fa-shipping-fast" style="color:#4361ee;margin-right:6px;"></i>Phí vận chuyển</span>
+                    <span class="s-value" id="shipping-cost">25.000đ</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span class="s-label">Tổng cộng</span>
+                    <span class="s-value" id="final-total">0đ</span>
+                </div>
+
+                <!-- Phương thức thanh toán (đọc từ giỏ hàng — hiển thị thôi) -->
+                <div class="section-label" style="margin-top:20px;">Phương thức thanh toán đã chọn</div>
+                <div id="payment-display" style="background:#f9fafe;border:1.5px dashed #d0d8f5;border-radius:12px;padding:12px 16px;font-size:13.5px;color:#555;display:flex;align-items:center;gap:10px;">
+                    <i class="fas fa-hand-holding-usd" style="color:#4361ee;font-size:16px;"></i>
+                    <span id="payment-label">Thanh toán khi nhận hàng (COD)</span>
+                </div>
+
+                <!-- Nút đặt hàng -->
+                <button class="btn-order" onclick="handleOrder()">
+                    <i class="fas fa-lock"></i> Xác nhận đặt hàng
+                </button>
+                <a asp-action="Index" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Quay lại giỏ hàng
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     QR Payment Modal
+══════════════════════════════════════ -->
+<div id="qr-overlay">
+    <div class="qr-modal">
+        <button class="qr-close" onclick="closeQR()" title="Đóng">&times;</button>
+
+        <div class="qr-logo"><i class="fas fa-qrcode"></i></div>
+        <div class="qr-title">Quét mã để thanh toán</div>
+        <div class="qr-subtitle">Sử dụng ứng dụng ngân hàng hoặc ví điện tử</div>
+
+        <div class="wallet-chips">
+            <span class="wallet-chip">MoMo</span>
+            <span class="wallet-chip">ZaloPay</span>
+            <span class="wallet-chip">VNPay</span>
+            <span class="wallet-chip">Ngân hàng</span>
+        </div>
+
+        <div class="qr-amount" id="qr-amount-display">0đ</div>
+
+        <!-- QR image -->
+        <div class="qr-frame">
+            <img id="qr-img" src="" alt="QR Code" />
+            <div id="qr-expired-overlay">
+                <i class="fas fa-clock"></i>
+                <span>Mã đã hết hạn</span>
+            </div>
+        </div>
+
+        <!-- Timer -->
+        <div class="qr-timer-wrap">
+            <div class="qr-timer-ring">
+                <svg width="52" height="52" viewBox="0 0 52 52">
+                    <circle id="timer-track" cx="26" cy="26" r="22" />
+                    <circle id="timer-progress" cx="26" cy="26" r="22" />
+                </svg>
+                <div class="qr-timer-num" id="timer-num">10:00</div>
+            </div>
+            <div class="qr-timer-text">Mã QR có hiệu lực trong <strong id="timer-text-bold">10 phút</strong></div>
+        </div>
+
+        <!-- Bank info -->
+        <div class="qr-bank-info">
+            <div class="bi-row"><span>Ngân hàng</span><strong>Vietcombank</strong></div>
+            <div class="bi-row"><span>Số tài khoản</span><strong>1234 5678 9012</strong></div>
+            <div class="bi-row"><span>Chủ tài khoản</span><strong>CÔNG TY TNHH XYZ</strong></div>
+            <div class="bi-row"><span>Nội dung CK</span><strong id="transfer-content">DH-000000</strong></div>
+            <div class="bi-row"><span>Số tiền</span><strong id="qr-bank-amount">0đ</strong></div>
+        </div>
+
+        <button class="btn-qr-refresh" onclick="refreshQR()">
+            <i class="fas fa-sync-alt"></i> Tạo mã mới
+        </button>
+
+        <button class="qr-confirm-btn" onclick="confirmEwalletPayment()">
+            <i class="fas fa-check-circle"></i> Tôi đã chuyển khoản thành công
+        </button>
+    </div>
+</div>
+
+
+<script>
+    // ─── Dữ liệu từ Model ───────────────────────────────
+    let productTotal = @Model.HoaDon.Total;
+    let shippingCost = 25000;
+
+    // Đọc phương thức thanh toán từ sessionStorage (được lưu ở trang giỏ hàng)
+    // Nếu không có thì mặc định COD
+    let paymentMethod = sessionStorage.getItem('paymentMethod') || 'COD';
+
+    // ─── Cập nhật phí ship ───────────────────────────────
+    function updateShipping(cost) {
+        shippingCost = cost;
+        document.getElementById('shippingMethod').value = cost;
+        document.getElementById('shipping-cost').textContent =
+            new Intl.NumberFormat('vi-VN').format(cost) + 'đ';
+        updateFinalTotal();
+    }
+
+    function updateFinalTotal() {
+        const total = productTotal + shippingCost;
+        document.getElementById('final-total').textContent =
+            new Intl.NumberFormat('vi-VN').format(total) + 'đ';
+    }
+
+    // ─── Hiển thị phương thức thanh toán ─────────────────
+    const paymentLabels = {
+        'COD':     { icon: 'fas fa-hand-holding-usd', text: 'Thanh toán khi nhận hàng (COD)' },
+        'Card':    { icon: 'fas fa-university',        text: 'Thanh toán qua thẻ ngân hàng'  },
+        'Ewallet': { icon: 'fas fa-mobile-alt',        text: 'Thanh toán qua ví điện tử'     }
+    };
+
+    function renderPaymentDisplay() {
+        const p = paymentLabels[paymentMethod] || paymentLabels['COD'];
+        document.getElementById('payment-display').innerHTML =
+            `<i class="${p.icon}" style="color:#4361ee;font-size:16px;"></i>
+             <span id="payment-label">${p.text}</span>`;
+    }
+
+    // ─── Xử lý nút đặt hàng ──────────────────────────────
+    function handleOrder() {
+        if (paymentMethod === 'Ewallet') {
+            openQR();
+        } else {
+            // COD / Card: submit form bình thường lên server
+            document.getElementById('real-submit').click();
+        }
+    }
+
+    function confirmEwalletPayment() {
+        // Ewallet: đóng QR rồi submit form lên server
+        closeQR();
+        document.getElementById('real-submit').click();
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  QR CODE LOGIC
+    // ══════════════════════════════════════════════════════
+    const QR_SECONDS = 600; // 10 phút
+    const CIRCUMFERENCE = 2 * Math.PI * 22; // r=22
+
+    let qrTimer = null;
+    let qrSecondsLeft = QR_SECONDS;
+    let currentOrderId = '';
+
+    function generateOrderId() {
+        return 'DH-' + Date.now().toString().slice(-6);
+    }
+
+    function buildQRUrl(amount, orderId) {
+        // VietQR public API — tạo mã QR chuyển khoản nhanh
+        // Ngân hàng: Vietcombank (VCB), STK: 1234567890
+        const bank    = 'VCB';
+        const account = '1234567890';
+        const encoded = encodeURIComponent(orderId);
+        return `https://img.vietqr.io/image/${bank}-${account}-compact2.png?amount=${amount}&addInfo=${encoded}&accountName=CONG%20TY%20TNHH%20XYZ`;
+    }
+
+    function openQR() {
+        const total = productTotal + shippingCost;
+        currentOrderId = generateOrderId();
+
+        // Cập nhật hiển thị
+        document.getElementById('qr-amount-display').textContent =
+            new Intl.NumberFormat('vi-VN').format(total) + 'đ';
+        document.getElementById('qr-bank-amount').textContent =
+            new Intl.NumberFormat('vi-VN').format(total) + 'đ';
+        document.getElementById('transfer-content').textContent = currentOrderId;
+
+        // Load QR
+        loadQRImage(total, currentOrderId);
+
+        // Reset timer
+        startTimer();
+
+        // Show overlay
+        document.getElementById('qr-overlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function loadQRImage(amount, orderId) {
+        const img = document.getElementById('qr-img');
+        document.getElementById('qr-expired-overlay').classList.remove('show');
+        img.src = buildQRUrl(amount, orderId);
+    }
+
+    function closeQR() {
+        document.getElementById('qr-overlay').classList.remove('active');
+        document.body.style.overflow = '';
+        clearInterval(qrTimer);
+    }
+
+    function refreshQR() {
+        const total = productTotal + shippingCost;
+        currentOrderId = generateOrderId();
+        document.getElementById('transfer-content').textContent = currentOrderId;
+        loadQRImage(total, currentOrderId);
+        startTimer();
+    }
+
+    function startTimer() {
+        clearInterval(qrTimer);
+        qrSecondsLeft = QR_SECONDS;
+        document.getElementById('qr-expired-overlay').classList.remove('show');
+
+        const progress = document.getElementById('timer-progress');
+        const numEl    = document.getElementById('timer-num');
+
+        progress.style.strokeDasharray  = CIRCUMFERENCE;
+        progress.style.strokeDashoffset = 0;
+        progress.className = '';
+
+        function tick() {
+            qrSecondsLeft--;
+
+            // Format mm:ss
+            const m = String(Math.floor(qrSecondsLeft / 60)).padStart(2, '0');
+            const s = String(qrSecondsLeft % 60).padStart(2, '0');
+            numEl.textContent = `${m}:${s}`;
+            document.getElementById('timer-text-bold').textContent =
+                qrSecondsLeft > 60
+                    ? Math.ceil(qrSecondsLeft / 60) + ' phút'
+                    : qrSecondsLeft + ' giây';
+
+            // Vòng tròn đếm ngược
+            const ratio  = qrSecondsLeft / QR_SECONDS;
+            const offset = CIRCUMFERENCE * (1 - ratio);
+            progress.style.strokeDashoffset = offset;
+
+            // Màu cảnh báo
+            if (qrSecondsLeft <= 60) {
+                progress.className = 'danger';
+                numEl.className    = 'qr-timer-num danger';
+            } else if (qrSecondsLeft <= 120) {
+                progress.className = 'warning';
+                numEl.className    = 'qr-timer-num warning';
+            }
+
+            // Hết giờ
+            if (qrSecondsLeft <= 0) {
+                clearInterval(qrTimer);
+                document.getElementById('qr-expired-overlay').classList.add('show');
+                numEl.textContent = '00:00';
+            }
+        }
+
+        qrTimer = setInterval(tick, 1000);
+    }
+
+    // Đóng overlay khi click ra ngoài modal
+    document.getElementById('qr-overlay').addEventListener('click', function(e) {
+        if (e.target === this) closeQR();
+    });
+
+    // ─── Init ─────────────────────────────────────────────
+    updateFinalTotal();
+    renderPaymentDisplay();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

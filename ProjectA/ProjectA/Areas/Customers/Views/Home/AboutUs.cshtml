@@ -1,0 +1,614 @@
+﻿@{
+    ViewData["Title"] = "Về chúng tôi";
+}
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    /* ── Reset & base ─────────────────────────────── */
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    .au-wrap {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        color: #1a1a2e;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px 80px;
+    }
+
+    /* ── Hero ────────────────────────────────────── */
+    .au-hero {
+        position: relative;
+        border-radius: 28px;
+        overflow: hidden;
+        height: 340px;
+        margin-bottom: 56px;
+        background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+        .au-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 55%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 45%);
+        }
+        /* Decorative circles */
+        .au-hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 40px solid rgba(255,255,255,0.05);
+            top: -80px;
+            right: -60px;
+        }
+
+    .au-hero-inner {
+        position: relative;
+        z-index: 2;
+        padding: 20px;
+    }
+
+    .au-hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 50px;
+        padding: 6px 16px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.9);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+
+    .au-hero h1 {
+        font-size: clamp(28px, 5vw, 46px);
+        font-weight: 800;
+        color: #fff;
+        margin: 0 0 14px;
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+    }
+
+    .au-hero p {
+        font-size: 15px;
+        color: rgba(255,255,255,0.78);
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    /* ── Section title ───────────────────────────── */
+    .au-section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .au-section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, #e8ecff, transparent);
+            border-radius: 2px;
+        }
+
+        .au-section-title i {
+            color: #4361ee;
+            font-size: 18px;
+        }
+
+    /* ── Gallery ─────────────────────────────────── */
+    .au-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        margin-bottom: 56px;
+    }
+
+    @@media (max-width: 768px) {
+        .au-gallery-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .au-gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .au-gallery-item {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        aspect-ratio: 4/3;
+        cursor: pointer;
+        background: #eef0f6;
+    }
+
+        .au-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+            display: block;
+        }
+
+        .au-gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(67,97,238,0.5) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .au-gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .au-gallery-item:hover::after {
+            opacity: 1;
+        }
+
+    .au-gallery-zoom {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4361ee;
+        font-size: 13px;
+        z-index: 2;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: opacity 0.25s, transform 0.25s;
+    }
+
+    .au-gallery-item:hover .au-gallery-zoom {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* ── Lightbox ────────────────────────────────── */
+    .au-lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(10,10,30,0.88);
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(6px);
+        cursor: zoom-out;
+    }
+
+        .au-lightbox.open {
+            display: flex;
+        }
+
+        .au-lightbox img {
+            max-width: min(90vw, 900px);
+            max-height: 85vh;
+            border-radius: 18px;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+            animation: lbIn 0.25s ease;
+            cursor: default;
+        }
+
+    @@keyframes lbIn {
+        from {
+            opacity: 0;
+            transform: scale(0.92);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .au-lb-close {
+        position: absolute;
+        top: 20px;
+        right: 24px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        border: 1.5px solid rgba(255,255,255,0.25);
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.18s;
+        z-index: 3;
+    }
+
+        .au-lb-close:hover {
+            background: rgba(230,57,70,0.7);
+            border-color: transparent;
+        }
+
+    .au-lb-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.12);
+        border: 1.5px solid rgba(255,255,255,0.2);
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.18s;
+        z-index: 3;
+    }
+
+        .au-lb-nav:hover {
+            background: rgba(67,97,238,0.6);
+            border-color: transparent;
+        }
+
+    .au-lb-prev {
+        left: 20px;
+    }
+
+    .au-lb-next {
+        right: 20px;
+    }
+
+    .au-lb-counter {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 20px;
+        padding: 5px 16px;
+        font-size: 13px;
+        color: rgba(255,255,255,0.85);
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-weight: 600;
+    }
+
+    /* ── Stats row ───────────────────────────────── */
+    .au-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+
+    @@media (max-width: 768px) {
+        .au-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .au-stat-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 22px 20px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+        text-align: center;
+        border: 1.5px solid #eef0f8;
+        transition: transform 0.22s, box-shadow 0.22s;
+    }
+
+        .au-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 32px rgba(67,97,238,0.12);
+        }
+
+    .au-stat-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #4361ee18, #7209b718);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+        font-size: 20px;
+        color: #4361ee;
+    }
+
+    .au-stat-num {
+        font-size: 28px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+
+    .au-stat-label {
+        font-size: 12.5px;
+        color: #888;
+        font-weight: 500;
+    }
+
+    /* ── Content cards ───────────────────────────── */
+    .au-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    @@media (max-width: 900px) {
+        .au-cards {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .au-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 28px 26px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+        border: 1.5px solid #eef0f8;
+        transition: transform 0.22s, box-shadow 0.22s;
+    }
+
+        .au-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(67,97,238,0.1);
+        }
+
+    .au-card-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 22px;
+        margin-bottom: 18px;
+        box-shadow: 0 6px 18px rgba(67,97,238,0.3);
+    }
+
+    .au-card h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin: 0 0 10px;
+    }
+
+    .au-card p {
+        font-size: 13.5px;
+        color: #777;
+        line-height: 1.75;
+        margin: 0;
+    }
+
+    /* ── Story block ─────────────────────────────── */
+    .au-story {
+        background: #fff;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        border: 1.5px solid #eef0f8;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .au-story::before {
+            content: '"\201C"';
+            position: absolute;
+            top: -10px;
+            left: 28px;
+            font-size: 120px;
+            font-weight: 800;
+            color: #4361ee0d;
+            font-family: Georgia, serif;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .au-story p {
+            font-size: 14.5px;
+            color: #555;
+            line-height: 1.85;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+            .au-story p:last-child {
+                margin-bottom: 0;
+            }
+
+        .au-story strong {
+            color: #4361ee;
+        }
+</style>
+
+<!-- Lightbox -->
+<div class="au-lightbox" id="auLightbox" onclick="lbClose(event)">
+    <button class="au-lb-close" onclick="lbClose()"><i class="fas fa-times"></i></button>
+    <button class="au-lb-nav au-lb-prev" onclick="lbNav(-1); event.stopPropagation();"><i class="fas fa-chevron-left"></i></button>
+    <img id="lbImg" src="" alt="">
+    <button class="au-lb-nav au-lb-next" onclick="lbNav(1); event.stopPropagation();"><i class="fas fa-chevron-right"></i></button>
+    <div class="au-lb-counter" id="lbCounter">1 / 5</div>
+</div>
+
+<div class="au-wrap">
+
+    <!-- Hero -->
+    <div class="au-hero">
+        <div class="au-hero-inner">
+            <div class="au-hero-badge"><i class="fas fa-store"></i> Thành lập năm 2020</div>
+            <h1>Về chúng tôi — DesBy</h1>
+            <p>Điểm đến lý tưởng cho những tín đồ công nghệ. Chất lượng thật — Giá trị thật.</p>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="au-stats">
+        <div class="au-stat-card">
+            <div class="au-stat-icon"><i class="fas fa-users"></i></div>
+            <div class="au-stat-num">10K+</div>
+            <div class="au-stat-label">Khách hàng tin tưởng</div>
+        </div>
+        <div class="au-stat-card">
+            <div class="au-stat-icon"><i class="fas fa-box"></i></div>
+            <div class="au-stat-num">500+</div>
+            <div class="au-stat-label">Sản phẩm chính hãng</div>
+        </div>
+        <div class="au-stat-card">
+            <div class="au-stat-icon"><i class="fas fa-star"></i></div>
+            <div class="au-stat-num">4.9</div>
+            <div class="au-stat-label">Đánh giá trung bình</div>
+        </div>
+        <div class="au-stat-card">
+            <div class="au-stat-icon"><i class="fas fa-headset"></i></div>
+            <div class="au-stat-num">24/7</div>
+            <div class="au-stat-label">Hỗ trợ khách hàng</div>
+        </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="au-section-title"><i class="fas fa-images"></i> Hình ảnh sản phẩm</div>
+    <div class="au-gallery-grid" id="gallery">
+        <div class="au-gallery-item" onclick="lbOpen(0)">
+            <img src="https://cdn-media.sforum.vn/storage/app/media/wp-content/uploads/2022/01/ROG-Strix-SCAR-2.jpg" alt="ROG Strix">
+            <div class="au-gallery-zoom"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="au-gallery-item" onclick="lbOpen(1)">
+            <img src="https://anphat.com.vn/media/lib/06-09-2023/lenovolegionslim516aph882y9002yvn2.jpg" alt="Lenovo Legion">
+            <div class="au-gallery-zoom"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="au-gallery-item" onclick="lbOpen(2)">
+            <img src="https://tq3.mediacdn.vn/139269124445442048/2022/5/18/image6-1652858265445455620249.jpg" alt="Laptop">
+            <div class="au-gallery-zoom"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="au-gallery-item" onclick="lbOpen(3)">
+            <img src="https://danviet.mediacdn.vn/upload/4-2019/images/2019-11-18/Lieu-co-quai-vat-smartphone-nao-chup-anh-bang-iPhone-11-Pro-pixel-4-xl-vs-iphone-11-pro-1574056364-width660height440.jpg" alt="Smartphone">
+            <div class="au-gallery-zoom"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="au-gallery-item" onclick="lbOpen(4)">
+            <img src="https://img.timviec.com.vn/2020/04/smartphone-la-gi-2.jpg" alt="Smartphone 2">
+            <div class="au-gallery-zoom"><i class="fas fa-expand"></i></div>
+        </div>
+    </div>
+
+    <!-- 3 value cards -->
+    <div class="au-section-title"><i class="fas fa-award"></i> Cam kết của chúng tôi</div>
+    <div class="au-cards">
+        <div class="au-card">
+            <div class="au-card-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Chất lượng chính hãng</h3>
+            <p>Toàn bộ sản phẩm được tuyển chọn kỹ lưỡng từ các thương hiệu uy tín, kèm theo bảo hành chính thức.</p>
+        </div>
+        <div class="au-card">
+            <div class="au-card-icon"><i class="fas fa-tags"></i></div>
+            <h3>Giá cả cạnh tranh</h3>
+            <p>Chúng tôi cam kết mang đến mức giá tốt nhất thị trường, thường xuyên có chương trình ưu đãi hấp dẫn.</p>
+        </div>
+        <div class="au-card">
+            <div class="au-card-icon"><i class="fas fa-headset"></i></div>
+            <h3>Hỗ trợ tận tâm</h3>
+            <p>Đội ngũ tư vấn nhiệt tình, sẵn sàng giải đáp mọi thắc mắc trước, trong và sau khi mua hàng.</p>
+        </div>
+    </div>
+
+    <!-- Story -->
+    <div class="au-section-title"><i class="fas fa-book-open"></i> Câu chuyện của DesBy</div>
+    <div class="au-story">
+        <p>
+            Chào mừng bạn đến với <strong>DesBy</strong>, điểm đến lý tưởng cho những tín đồ công nghệ!
+            Được thành lập vào năm <strong>2020</strong>, chúng tôi tự hào mang đến cho bạn một trải nghiệm
+            mua sắm trực tuyến thú vị và tiện lợi.
+        </p>
+        <p>
+            Tại DesBy, chúng tôi chuyên cung cấp các sản phẩm công nghệ hàng đầu, bao gồm
+            <strong>laptop, điện thoại thông minh và phụ kiện di động</strong>, đáp ứng nhu cầu đa dạng của khách hàng.
+        </p>
+        <p>
+            Với cam kết chất lượng và dịch vụ tận tâm, DesBy luôn lựa chọn những sản phẩm chính hãng
+            từ các thương hiệu uy tín, đảm bảo rằng bạn sẽ tìm thấy những sản phẩm tốt nhất với mức giá
+            cạnh tranh. Chúng tôi hiểu rằng công nghệ không chỉ là sản phẩm — mà còn là một phần
+            không thể thiếu trong cuộc sống hằng ngày của bạn.
+        </p>
+        <p>
+            Hãy đến với <strong>DesBy</strong> và khám phá bộ sưu tập sản phẩm phong phú. Đội ngũ nhân viên
+            nhiệt tình và giàu kinh nghiệm của chúng tôi luôn sẵn sàng hỗ trợ bạn trong mọi thắc mắc.
+            <strong>Cảm ơn bạn đã chọn DesBy — nơi công nghệ kết nối mọi người!</strong>
+        </p>
+    </div>
+
+</div>
+
+<script>
+    const lbImages = [
+        "https://cdn-media.sforum.vn/storage/app/media/wp-content/uploads/2022/01/ROG-Strix-SCAR-2.jpg",
+        "https://anphat.com.vn/media/lib/06-09-2023/lenovolegionslim516aph882y9002yvn2.jpg",
+        "https://tq3.mediacdn.vn/139269124445442048/2022/5/18/image6-1652858265445455620249.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhtJp5Zc90x75MI0gbNM5DF3JXpEbLUo_zPA&s",
+        "https://img.timviec.com.vn/2020/04/smartphone-la-gi-2.jpg"
+    ];
+    let lbCurrent = 0;
+
+    function lbOpen(idx) {
+        lbCurrent = idx;
+        document.getElementById("lbImg").src = lbImages[idx];
+        document.getElementById("lbCounter").textContent = (idx + 1) + " / " + lbImages.length;
+        document.getElementById("auLightbox").classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function lbClose(e) {
+        if (!e || e.target === document.getElementById("auLightbox") || e.target === document.querySelector(".au-lb-close")) {
+            document.getElementById("auLightbox").classList.remove("open");
+            document.body.style.overflow = "";
+        }
+    }
+
+    function lbNav(dir) {
+        lbCurrent = (lbCurrent + dir + lbImages.length) % lbImages.length;
+        document.getElementById("lbImg").src = lbImages[lbCurrent];
+        document.getElementById("lbCounter").textContent = (lbCurrent + 1) + " / " + lbImages.length;
+    }
+
+    // Phim tat keyboard
+    document.addEventListener("keydown", function(e) {
+        if (!document.getElementById("auLightbox").classList.contains("open")) return;
+        if (e.key === "ArrowLeft")  lbNav(-1);
+        if (e.key === "ArrowRight") lbNav(1);
+        if (e.key === "Escape")     lbClose();
+    });
+</script>

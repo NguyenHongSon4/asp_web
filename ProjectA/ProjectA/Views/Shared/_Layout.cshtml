@@ -1,0 +1,1233 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DesBy</title>
+
+    <!-- Bootstrap & FA -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ProjectA.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* ══ GLOBAL RESET ══════════════════════════════════════ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #1a1a2e;
+            padding-top: 70px; /* offset fixed navbar */
+        }
+
+        /* ══ NAVBAR ════════════════════════════════════════════ */
+        .site-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            background: #fff;
+            border-bottom: 1px solid #eef0f6;
+            box-shadow: 0 2px 16px rgba(67,97,238,0.07);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+        }
+
+            .site-navbar .nav-inner {
+                max-width: 1280px;
+                width: 100%;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+        /* Brand */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-right: 24px;
+            flex-shrink: 0;
+        }
+
+        .nav-brand-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            object-fit: contain;
+            background: #f0f2ff;
+            padding: 2px;
+        }
+
+        .nav-brand-name {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.3px;
+        }
+
+        /* Nav links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex: 1;
+        }
+
+            .nav-links > li > a,
+            .nav-links > li > .nav-dd-toggle {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 7px 12px;
+                font-size: 13.5px;
+                font-weight: 500;
+                color: #555;
+                text-decoration: none;
+                border-radius: 10px;
+                transition: background 0.18s, color 0.18s;
+                cursor: pointer;
+                white-space: nowrap;
+                background: none;
+                border: none;
+                font-family: 'Be Vietnam Pro', sans-serif;
+            }
+
+                .nav-links > li > a:hover,
+                .nav-links > li > .nav-dd-toggle:hover {
+                    background: #f0f2ff;
+                    color: #4361ee;
+                }
+
+                .nav-links > li > a.active-link {
+                    background: #f0f2ff;
+                    color: #4361ee;
+                    font-weight: 600;
+                }
+
+                .nav-links > li > a i,
+                .nav-links > li > .nav-dd-toggle i {
+                    font-size: 13px;
+                    width: 14px;
+                    text-align: center;
+                }
+
+        /* Dropdown */
+        .nav-dd-wrap {
+            position: relative;
+        }
+
+        .nav-dd-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid #eef0f6;
+            box-shadow: 0 8px 32px rgba(67,97,238,0.12);
+            min-width: 210px;
+            padding: 14px 6px 6px;
+            margin-top: 0;
+            z-index: 2000;
+        }
+        /* Pseudo-element lấp khoảng trống giữa nút và menu */
+        .nav-dd-wrap::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 14px;
+        }
+
+        .nav-dd-wrap:hover .nav-dd-menu {
+            display: block;
+        }
+
+        .nav-dd-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #444;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+            .nav-dd-menu a:hover {
+                background: #f0f2ff;
+                color: #4361ee;
+            }
+
+            .nav-dd-menu a i {
+                width: 16px;
+                text-align: center;
+                color: #4361ee;
+                font-size: 13px;
+            }
+
+        /* Nav right section */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        /* Icon nav buttons (cart, heart) */
+        .nav-icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: none;
+            background: #f5f5f8;
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            text-decoration: none;
+            transition: background 0.18s, color 0.18s;
+            cursor: pointer;
+            position: relative;
+        }
+
+            .nav-icon-btn:hover {
+                background: #f0f2ff;
+                color: #4361ee;
+            }
+
+        /* Cart badge */
+        .nav-cart-wrap {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: linear-gradient(135deg, #e63946, #c1121f);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            border: 2px solid #fff;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        /* Auth buttons */
+        .nav-btn-outline {
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1.5px solid #e0e3f0;
+            background: transparent;
+            color: #555;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: border-color 0.18s, color 0.18s, background 0.18s;
+            white-space: nowrap;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            cursor: pointer;
+        }
+
+            .nav-btn-outline:hover {
+                border-color: #4361ee;
+                color: #4361ee;
+                background: #f0f2ff;
+            }
+
+        .nav-btn-primary {
+            padding: 7px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.18s, transform 0.15s;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(67,97,238,0.25);
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+            .nav-btn-primary:hover {
+                opacity: 0.9;
+                color: #fff;
+                transform: translateY(-1px);
+            }
+
+        /* User pill */
+        .nav-user-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px 5px 5px;
+            border-radius: 50px;
+            background: #f5f5f8;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            text-decoration: none;
+            transition: background 0.18s;
+            max-width: 160px;
+        }
+
+            .nav-user-pill:hover {
+                background: #eaeaf0;
+                color: #333;
+            }
+
+        .nav-user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .nav-user-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Search */
+        .nav-search-wrap {
+            position: relative;
+        }
+
+        .nav-search-input {
+            height: 38px;
+            padding: 0 12px 0 36px;
+            border: 1.5px solid #eee;
+            border-radius: 10px;
+            font-size: 13px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            width: 180px;
+            outline: none;
+            transition: border-color 0.18s, width 0.25s;
+            background: #fafbff;
+            color: #333;
+        }
+
+            .nav-search-input:focus {
+                border-color: #4361ee;
+                width: 220px;
+            }
+
+            .nav-search-input::placeholder {
+                color: #bbb;
+            }
+
+        .nav-search-icon {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bbb;
+            font-size: 12px;
+            pointer-events: none;
+        }
+
+        #search-results-container {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            min-width: 260px;
+            max-height: 320px;
+            overflow-y: auto;
+            background: #fff;
+            border: 1px solid #eef0f6;
+            border-radius: 14px;
+            box-shadow: 0 8px 28px rgba(67,97,238,0.1);
+            z-index: 2100;
+            padding: 6px;
+        }
+
+        /* Mobile toggle */
+        .nav-mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #555;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        /* ══ CAROUSEL ══════════════════════════════════════════ */
+        .site-carousel .carousel-item {
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+            .site-carousel .carousel-item::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 100%);
+            }
+
+        .site-carousel .carousel-caption {
+            z-index: 2;
+            bottom: 60px;
+        }
+
+            .site-carousel .carousel-caption h5 {
+                font-size: 32px;
+                font-weight: 700;
+                letter-spacing: -0.5px;
+                text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            }
+
+            .site-carousel .carousel-caption p {
+                font-size: 16px;
+                opacity: 0.9;
+            }
+
+        .site-carousel .carousel-control-prev,
+        .site-carousel .carousel-control-next {
+            width: 50px;
+        }
+
+        /* ══ MAIN CONTENT ══════════════════════════════════════ */
+        .site-main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px 20px 20px;
+        }
+
+        /* ══ FOOTER ════════════════════════════════════════════ */
+        .site-footer-info {
+            background: #1a1a2e;
+            padding: 56px 0 24px;
+            margin-top: 60px;
+        }
+
+            .site-footer-info .footer-inner {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+
+        .footer-col-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #fff;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .footer-col-title i {
+                color: #4361ee;
+            }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 13.5px;
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.18s;
+            cursor: pointer;
+        }
+
+            .footer-contact-item:hover {
+                color: #fff;
+            }
+
+            .footer-contact-item i {
+                color: #4361ee;
+                margin-top: 2px;
+                font-size: 13px;
+                flex-shrink: 0;
+            }
+
+        .footer-social-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .footer-social-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 15px;
+            text-decoration: none;
+            transition: background 0.18s, color 0.18s, border-color 0.18s;
+        }
+
+            .footer-social-btn:hover {
+                background: #4361ee;
+                color: #fff;
+                border-color: #4361ee;
+            }
+
+        .footer-about-text {
+            font-size: 13.5px;
+            color: #999;
+            line-height: 1.75;
+        }
+
+        .footer-link-item {
+            display: block;
+            font-size: 13.5px;
+            color: #999;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.18s, padding-left 0.18s;
+        }
+
+            .footer-link-item:hover {
+                color: #4361ee;
+                padding-left: 4px;
+            }
+
+        .footer-divider {
+            border-color: rgba(255,255,255,0.07);
+            margin: 32px 0 20px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12.5px;
+            color: #666;
+        }
+
+            .footer-bottom a {
+                color: #666;
+                text-decoration: none;
+                transition: color 0.18s;
+            }
+
+                .footer-bottom a:hover {
+                    color: #4361ee;
+                }
+
+        /* Subscribe form */
+        .footer-subscribe {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+            .footer-subscribe input {
+                padding: 10px 14px;
+                border-radius: 10px;
+                border: 1.5px solid rgba(255,255,255,0.1);
+                background: rgba(255,255,255,0.06);
+                color: #fff;
+                font-size: 13px;
+                font-family: 'Be Vietnam Pro', sans-serif;
+                outline: none;
+                transition: border-color 0.18s;
+            }
+
+                .footer-subscribe input:focus {
+                    border-color: #4361ee;
+                }
+
+                .footer-subscribe input::placeholder {
+                    color: #666;
+                }
+
+            .footer-subscribe button {
+                padding: 10px;
+                border-radius: 10px;
+                border: none;
+                background: linear-gradient(135deg, #4361ee, #7209b7);
+                color: #fff;
+                font-size: 13px;
+                font-weight: 600;
+                font-family: 'Be Vietnam Pro', sans-serif;
+                cursor: pointer;
+                transition: opacity 0.18s;
+            }
+
+                .footer-subscribe button:hover {
+                    opacity: 0.85;
+                }
+
+        /* Bottom footer */
+        .site-footer-bottom {
+            background: #13131f;
+            padding: 16px 24px;
+        }
+
+            .site-footer-bottom .footer-inner {
+                max-width: 1280px;
+                margin: 0 auto;
+            }
+
+        /* ══ SOCIAL FLOATING MENU ══════════════════════════════ */
+        .floating-social {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+            .floating-social a {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 8px;
+                text-decoration: none;
+            }
+
+                .floating-social a .fs-label {
+                    display: none;
+                    background: #1a1a2e;
+                    color: #fff;
+                    font-size: 12px;
+                    font-weight: 600;
+                    padding: 5px 10px;
+                    border-radius: 8px;
+                    white-space: nowrap;
+                }
+
+                .floating-social a:hover .fs-label {
+                    display: block;
+                }
+
+            .floating-social img {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transition: transform 0.2s;
+            }
+
+            .floating-social a:hover img {
+                transform: scale(1.1);
+            }
+
+        /* ══ MAP ═══════════════════════════════════════════════ */
+        #map-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+            #map-container iframe {
+                border-radius: 16px;
+                border: none;
+            }
+
+        /* ══ RESPONSIVE ════════════════════════════════════════ */
+        @@media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-mobile-toggle {
+                display: block;
+            }
+
+            .nav-search-input {
+                width: 140px;
+            }
+
+            .site-carousel .carousel-item {
+                height: 300px;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .nav-brand-name {
+                font-size: 16px;
+            }
+
+            .nav-search-wrap {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══ NAVBAR ══════════════════════════════════════════════════ -->
+    <nav class="site-navbar">
+        <div class="nav-inner">
+
+            <!-- Brand -->
+            <a class="nav-brand" href="/">
+                <img src="~/img/Screenshot 2026-03-12 105122.png" alt="DesBy Logo" class="nav-brand-logo">
+                <span class="nav-brand-name">DesBy</span>
+            </a>
+
+            <!-- Main nav links -->
+            <ul class="nav-links">
+                <li>
+                    <a href="/">
+                        <i class="fas fa-home"></i> Trang chủ
+                    </a>
+                </li>
+                <li>
+                    <a href="/Customers/Home/AboutUs">
+                        <i class="fas fa-info-circle"></i> Về chúng tôi
+                    </a>
+                </li>
+                <li>
+                    @await Component.InvokeAsync("TheLoai")
+                </li>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-dd-wrap">
+                        <button class="nav-dd-toggle">
+                            <i class="fas fa-cogs"></i> Quản lý <i class="fas fa-chevron-down" style="font-size:10px;margin-left:2px;"></i>
+                        </button>
+                        <div class="nav-dd-menu">
+                            <a asp-area="Admin" asp-controller="UserManager" asp-action="Index">
+                                <i class="fas fa-user-cog"></i> Quản lý người dùng
+                            </a>
+                            <a asp-area="Admin" asp-controller="DonHang" asp-action="Index">
+                                <i class="fas fa-box"></i> Quản lý đơn hàng
+                            </a>
+                            <a asp-area="Admin" asp-controller="SanPham" asp-action="Index">
+                                <i class="fas fa-cube"></i> Quản lý sản phẩm
+                            </a>
+                            <a asp-area="Admin" asp-controller="TheLoai" asp-action="Index">
+                                <i class="fas fa-folder"></i> Quản lý danh mục
+                            </a>
+                        </div>
+                    </li>
+                }
+            </ul>
+
+            <!-- Right section -->
+            <div class="nav-right">
+
+                <!-- Search -->
+                <div class="nav-search-wrap">
+                    <i class="fas fa-search nav-search-icon"></i>
+                    <input class="nav-search-input" type="search" placeholder="Tìm kiếm..." id="searchTerm"
+                           onkeyup="searchProducts()"
+                           onkeydown="if(event.key==='Enter') goToSearchPage()">
+                    <div id="search-results-container" style="display:none;"></div>
+                </div>
+
+                <!-- Favourites -->
+                <a class="nav-icon-btn" href="/Customers/FavoriteProduct/Index" title="Yêu thích">
+                    <i class="fas fa-heart"></i>
+                </a>
+
+                <!-- Cart -->
+                <div class="nav-cart-wrap">
+                    <a class="nav-icon-btn" href="/Customers/GioHang/Index" title="Giỏ hàng">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    @await Component.InvokeAsync("CartBadge")
+                </div>
+
+                @using Microsoft.AspNetCore.Identity
+                @inject SignInManager<IdentityUser> SignInManager
+                @inject UserManager<IdentityUser> UserManager
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a class="nav-user-pill" asp-area="Identity" asp-page="/Account/Manage/Index">
+                        <div class="nav-user-avatar"><i class="fas fa-user" style="font-size:11px;"></i></div>
+                        <span class="nav-user-name">@User.Identity?.Name</span>
+                    </a>
+                    <a href="javascript:void(0);" class="nav-btn-outline" onclick="document.getElementById('logoutForm').submit();">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
+                    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout"
+                          asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" style="display:none;"></form>
+                }
+                else
+                {
+                    <a class="nav-btn-outline" asp-area="Identity" asp-page="/Account/Register">
+                        <i class="fas fa-user-plus"></i> Đăng ký
+                    </a>
+                    <a class="nav-btn-primary" asp-area="Identity" asp-page="/Account/Login">
+                        <i class="fas fa-user-lock"></i> Đăng nhập
+                    </a>
+                }
+
+                <button class="nav-mobile-toggle" onclick="toggleMobileNav()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ══ CAROUSEL (trang chủ) ════════════════════════════════════ -->
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
+        ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+    {
+        <div id="carouselExampleCaptions" class="carousel slide site-carousel" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-image:url('https://cdn-media.sforum.vn/storage/app/media/wp-content/uploads/2022/01/ROG-Strix-SCAR-2.jpg')">
+                    <div class="carousel-caption">
+                        <h5>Thiết kế ấn tượng</h5>
+                        <p>Thoải mái thể hiện chất riêng, nổi bật cá tính</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image:url('https://anphat.com.vn/media/lib/06-09-2023/lenovolegionslim516aph882y9002yvn2.jpg')">
+                    <div class="carousel-caption">
+                        <h5>Hiệu năng cao</h5>
+                        <p>Đa tác vụ, thỏa sức chiến mọi tựa game</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image:url('https://tq3.mediacdn.vn/139269124445442048/2022/5/18/image6-1652858265445455620249.jpg')">
+                    <div class="carousel-caption">
+                        <h5>Đa dạng tính năng</h5>
+                        <p>Đáp ứng mọi yêu cầu từ người dùng</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    }
+
+    <!-- ══ MAIN ═════════════════════════════════════════════════════ -->
+    <div class="site-main">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- ══ FOOTER INFO ══════════════════════════════════════════════ -->
+    <footer class="site-footer-info">
+        <div class="footer-inner">
+            <div class="row">
+
+                <!-- Col 1: Contact -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="footer-col-title"><i class="fas fa-map-marker-alt"></i> Liên hệ</div>
+                    <a class="footer-contact-item" href="javascript:void(0);" onclick="toggleMap()">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Biên Hòa, Đồng Nai</span>
+                    </a>
+                    <a class="footer-contact-item" href="tel:0358739208">
+                        <i class="fas fa-phone"></i>
+                        <span>0358 739 208</span>
+                    </a>
+                    <a class="footer-contact-item" href="/cdn-cgi/l/email-protection#13577660516a4a7c66615e727a7f53747e727a7f3d707c7e">
+                        <i class="fas fa-envelope"></i>
+                        <span><span class="__cf_email__" data-cfemail="75311006370c2c1a000738141c19351218141c195b161a18">desby@gmail.com</span></span>
+                    </a>
+                    <div class="footer-social-row">
+                        <a class="footer-social-btn" href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="footer-social-btn" href="https://www.messenger.com/" target="_blank" title="Messenger"><i class="fab fa-facebook-messenger"></i></a>
+                        <a class="footer-social-btn" href="https://x.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a class="footer-social-btn" href="https://www.linkedin.com/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="footer-social-btn" href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: About -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="footer-col-title"><i class="fas fa-info-circle"></i> Về DesBy</div>
+                    <p class="footer-about-text">Tại DesBy, chúng tôi cam kết cung cấp các sản phẩm công nghệ hàng đầu, đáp ứng nhu cầu của cả những chuyên gia và người đam mê công nghệ. Dòng sản phẩm được chọn lọc kỹ lưỡng để đảm bảo hiệu suất và giá trị tối đa.</p>
+                </div>
+
+                <!-- Col 3: Links -->
+                <div class="col-md-6 col-lg-2 mb-4">
+                    <div class="footer-col-title"><i class="fas fa-link"></i> Liên kết</div>
+                    <a class="footer-link-item" href="/">Trang chủ</a>
+                    <a class="footer-link-item" href="/Customers/Home/AboutUs">Về chúng tôi</a>
+                    <a class="footer-link-item" href="/Customers/Home/Services">Dịch vụ</a>
+                    <a class="footer-link-item" href="/Customers/FavoriteProduct/Index">Yêu thích</a>
+                    <a class="footer-link-item" href="/Customers/GioHang/Index">Giỏ hàng</a>
+                </div>
+
+                <!-- Col 4: Subscribe -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="footer-col-title"><i class="fas fa-bell"></i> Nhận ưu đãi</div>
+                    <p class="footer-about-text" style="margin-bottom:14px;">Đăng ký email để nhận thông báo khuyến mãi và sản phẩm mới nhất từ DesBy.</p>
+                    <form action="#" method="post" class="footer-subscribe">
+                        <input type="email" placeholder="Nhập địa chỉ email của bạn" required>
+                        <button type="submit"><i class="fas fa-paper-plane" style="margin-right:6px;"></i>Đăng ký ngay</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <hr class="footer-divider">
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 DesBy. All rights reserved.</span>
+                <a href="/Home/Privacy">Chính sách bảo mật</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Map -->
+    <div id="map-container" style="display:none; margin-top:0; padding: 0 24px 24px;">
+        <div style="max-width:1280px; margin: 0 auto;">
+            <iframe id="google-map" width="100%" height="420" frameborder="0"
+                    style="border:0; border-radius:16px;"
+                    allowfullscreen="" aria-hidden="false" tabindex="0"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.3092263440346!2d106.65550711526046!3d10.778233692322464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752efdb46a013f%3A0xa3d1b9f3fbd1b8f!2sBien%20Hoa%2C%20Dong%20Nai%2C%20Vietnam!5e0!3m2!1sen!2s!4v1600135820913!5m2!1sen!2s">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- ══ FLOATING SOCIAL ══════════════════════════════════════════ -->
+    <div class="floating-social">
+        <a href="tel:0358739208" title="Gọi ngay">
+            <span class="fs-label">Gọi ngay</span>
+            <img src="https://cdn4.iconfinder.com/data/icons/social-media-2097/94/phone-512.png" alt="Phone">
+        </a>
+        <a href="https://zaloweb.me/" target="_blank" title="Zalo">
+            <span class="fs-label">Zalo</span>
+            <img src="https://cdn1.iconfinder.com/data/icons/logos-brands-in-colors/2500/zalo-seeklogo.com-512.png" alt="Zalo">
+        </a>
+        <a href="https://www.facebook.com/" target="_blank" title="Facebook">
+            <span class="fs-label">Facebook</span>
+            <img src="https://cdn-icons-png.flaticon.com/256/5968/5968764.png" alt="Facebook">
+        </a>
+        <a href="https://www.youtube.com/" target="_blank" title="YouTube">
+            <span class="fs-label">YouTube</span>
+            <img src="https://cdn.pixabay.com/photo/2021/05/22/11/38/yt-6273367_960_720.png" alt="YouTube">
+        </a>
+    </div>
+
+    <!-- ══ SCRIPTS ══════════════════════════════════════════════════ -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Map toggle
+        function toggleMap() {
+            var mc = document.getElementById("map-container");
+            mc.style.display = mc.style.display === "none" ? "block" : "none";
+        }
+
+        // Mobile nav toggle (simple show/hide nav-links)
+        function toggleMobileNav() {
+            var links = document.querySelector('.nav-links');
+            if (!links) return;
+            if (links.style.display === 'flex') {
+                links.style.display = 'none';
+            } else {
+                links.style.cssText = 'display:flex; flex-direction:column; position:fixed; top:64px; left:0; right:0; background:#fff; padding:12px 16px; gap:4px; z-index:1049; border-bottom:1px solid #eef0f6; box-shadow:0 8px 24px rgba(0,0,0,0.08);';
+            }
+        }
+
+        // Search autocomplete
+        function searchProducts() {
+            var searchTerm = document.getElementById('searchTerm').value;
+            if (searchTerm.length > 2) {
+                $.ajax({
+                    url: '@Url.Action("Search", "Home")',
+                    type: 'GET',
+                    data: { searchTerm: searchTerm },
+                    success: function (data) {
+                        if (data.trim() === '') {
+                            $('#search-results-container').hide();
+                        } else {
+                            $('#search-results-container').html(data).show();
+                        }
+                    },
+                    error: function () {
+                        $('#search-results-container').html('<p style="padding:8px;font-size:13px;color:#888;">Lỗi khi tìm kiếm.</p>').show();
+                    }
+                });
+            } else {
+                $('#search-results-container').empty().hide();
+            }
+        }
+
+        // Chuyển đến trang kết quả khi nhấn Enter
+        function goToSearchPage() {
+            var q = document.getElementById('searchTerm').value.trim();
+            if (q.length > 0) {
+                $('#search-results-container').hide();
+                window.location.href = '/Customers/Home/SearchPage?q=' + encodeURIComponent(q);
+            }
+        }
+
+        $(document).click(function (e) {
+            if (!$(e.target).closest('#search-results-container').length && !$(e.target).is('#searchTerm')) {
+                $('#search-results-container').hide();
+            }
+        });
+
+        // Favorites AJAX
+        $(document).ready(function () {
+            $('.btn-add-to-favorites').click(function (e) {
+                e.preventDefault();
+                var sanPhamId = $(this).data('sanpham-id');
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("AddToFavorites", "FavoriteProduct")',
+                    data: { sanPhamId: sanPhamId },
+                    success: function (response) {
+                        if (response.success) {
+                            var toast = new bootstrap.Toast($('#toast'));
+                            $('#toast .toast-body').text(response.message);
+                            toast.show();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () { alert('Có lỗi xảy ra. Vui lòng thử lại sau.'); }
+                });
+            });
+
+            $(document).on('click', '.add-to-favorites', function (e) {
+                e.preventDefault();
+                var sanPhamId = $(this).data('sanpham-id');
+                $.ajax({
+                    url: '/Customers/FavoriteProduct/AddToFavorites',
+                    type: 'POST',
+                    data: { sanPhamId: sanPhamId },
+                    success: function (response) { alert(response.message); },
+                    error: function (xhr) { alert('Lỗi: ' + xhr.status); }
+                });
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+    @* ══ ORDER SUCCESS MODAL ══════════════════════════════════════════ *@
+    @if (TempData["OrderSuccess"] != null)
+    {
+        <style>
+            .os-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(10,10,30,0.72);
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(5px);
+            }
+
+            .os-modal {
+                background: #fff;
+                border-radius: 28px;
+                padding: 48px 44px 40px;
+                max-width: 480px;
+                width: 92%;
+                text-align: center;
+                box-shadow: 0 24px 72px rgba(67,97,238,0.18);
+                animation: osPop 0.38s cubic-bezier(.175,.885,.32,1.275) both;
+            }
+
+            @@keyframes osPop {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8) translateY(30px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
+            }
+
+            .os-icon {
+                width: 84px;
+                height: 84px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #10b981, #059669);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 22px;
+                box-shadow: 0 10px 28px rgba(16,185,129,0.38);
+                animation: osIconPop 0.45s 0.15s cubic-bezier(.175,.885,.32,1.275) both;
+            }
+
+            @@keyframes osIconPop {
+                from {
+                    transform: scale(0) rotate(-45deg);
+                }
+
+                to {
+                    transform: scale(1) rotate(0);
+                }
+            }
+
+            .os-icon i {
+                font-size: 38px;
+                color: #fff;
+            }
+
+            .os-title {
+                font-size: 24px;
+                font-weight: 700;
+                color: #1a1a2e;
+                margin-bottom: 8px;
+            }
+
+            .os-sub {
+                font-size: 14px;
+                color: #888;
+                line-height: 1.75;
+                margin-bottom: 26px;
+            }
+
+            .os-box {
+                background: #f8f9ff;
+                border: 1.5px solid #e4e8ff;
+                border-radius: 16px;
+                padding: 16px 20px;
+                margin-bottom: 28px;
+                text-align: left;
+            }
+
+            .os-row {
+                display: flex;
+                justify-content: space-between;
+                font-size: 13.5px;
+                padding: 7px 0;
+                border-bottom: 1px solid #eef0f8;
+                color: #666;
+            }
+
+                .os-row:last-child {
+                    border-bottom: none;
+                }
+
+                .os-row span:last-child {
+                    font-weight: 600;
+                    color: #1a1a2e;
+                }
+
+            .os-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 14px 36px;
+                border-radius: 50px;
+                background: linear-gradient(135deg, #4361ee, #7209b7);
+                color: #fff;
+                font-size: 15px;
+                font-weight: 700;
+                border: none;
+                cursor: pointer;
+                font-family: 'Be Vietnam Pro', sans-serif;
+                box-shadow: 0 6px 20px rgba(67,97,238,0.35);
+                transition: opacity 0.18s, transform 0.15s;
+                text-decoration: none;
+            }
+
+                .os-btn:hover {
+                    opacity: 0.9;
+                    transform: translateY(-2px);
+                    color: #fff;
+                }
+        </style>
+
+        <div class="os-overlay" id="osOverlay" onclick="if(event.target===this)this.remove()">
+            <div class="os-modal">
+                <div class="os-icon"><i class="fas fa-check"></i></div>
+                <div class="os-title">Đặt hàng thành công! 🎉</div>
+                <div class="os-sub">
+                    Cảm ơn bạn đã tin tưởng mua sắm tại <strong>DesBy</strong>.<br>
+                    Đơn hàng đang được xử lý và sẽ sớm được giao đến bạn.
+                </div>
+                <div class="os-box">
+                    <div class="os-row">
+                        <span>Mã đơn hàng</span>
+                        <span style="color:#4361ee;font-weight:700;">@TempData["OrderId"]</span>
+                    </div>
+                    <div class="os-row">
+                        <span>Tổng tiền</span>
+                        <span>@TempData["OrderTotal"]đ</span>
+                    </div>
+                    <div class="os-row">
+                        <span>Trạng thái</span>
+                        <span style="color:#10b981;">✔ Đã xác nhận</span>
+                    </div>
+                </div>
+                <button class="os-btn" onclick="document.getElementById('osOverlay').remove()">
+                    <i class="fas fa-shopping-bag"></i> Tiếp tục mua sắm
+                </button>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

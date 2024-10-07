@@ -1,0 +1,622 @@
+﻿@model IEnumerable<SanPham>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    /* ── Filter bar ───────────────────────────────── */
+    .sp-filter-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 14px 18px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        border: 1.5px solid #eef0f8;
+    }
+
+    .sp-filter-label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+        .sp-filter-label i {
+            color: #4361ee;
+        }
+
+    .sp-filter-btn {
+        padding: 7px 16px;
+        border-radius: 50px;
+        border: 1.5px solid #eee;
+        background: #fafbff;
+        color: #555;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        transition: all 0.18s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+    }
+
+        .sp-filter-btn:hover {
+            border-color: #4361ee;
+            color: #4361ee;
+            background: #f0f2ff;
+        }
+
+        .sp-filter-btn.active {
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 3px 10px rgba(67,97,238,0.25);
+        }
+
+    .sp-filter-divider {
+        width: 1px;
+        height: 22px;
+        background: #eee;
+        flex-shrink: 0;
+    }
+
+    /* Price range */
+    .sp-price-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: 4px;
+    }
+
+    .sp-price-input {
+        width: 110px;
+        height: 34px;
+        padding: 0 10px;
+        border: 1.5px solid #eee;
+        border-radius: 50px;
+        font-size: 12.5px;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        outline: none;
+        background: #fafbff;
+        color: #333;
+        transition: border-color 0.18s;
+    }
+
+        .sp-price-input:focus {
+            border-color: #4361ee;
+        }
+
+        .sp-price-input::placeholder {
+            color: #ccc;
+        }
+
+    .sp-price-sep {
+        font-size: 12px;
+        color: #aaa;
+    }
+
+    .sp-price-apply {
+        padding: 6px 14px;
+        border-radius: 50px;
+        border: none;
+        background: #4361ee;
+        color: #fff;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        transition: opacity 0.18s;
+    }
+
+        .sp-price-apply:hover {
+            opacity: 0.85;
+        }
+
+    /* Search trong filter */
+    .sp-search-wrap {
+        margin-left: auto;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+        .sp-search-wrap input {
+            height: 36px;
+            padding: 0 12px 0 34px;
+            border: 1.5px solid #eee;
+            border-radius: 50px;
+            font-size: 13px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            width: 180px;
+            outline: none;
+            background: #fafbff;
+            color: #333;
+            transition: border-color 0.18s, width 0.25s;
+        }
+
+            .sp-search-wrap input:focus {
+                border-color: #4361ee;
+                width: 220px;
+            }
+
+            .sp-search-wrap input::placeholder {
+                color: #ccc;
+            }
+
+        .sp-search-wrap i {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bbb;
+            font-size: 12px;
+            pointer-events: none;
+        }
+
+    /* Result count */
+    .sp-result-info {
+        font-size: 13px;
+        color: #aaa;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+        .sp-result-info strong {
+            color: #4361ee;
+        }
+
+    /* ── Product grid ─────────────────────────────── */
+    .sp-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    /* ── Product card ─────────────────────────────── */
+    .sp-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        border: 1.5px solid #eef0f8;
+        overflow: hidden;
+        transition: transform 0.22s, box-shadow 0.22s;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .sp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 36px rgba(67,97,238,0.12);
+        }
+
+    .sp-card-img {
+        position: relative;
+        overflow: hidden;
+        height: 200px;
+        background: #f8f9ff;
+        flex-shrink: 0;
+    }
+
+        .sp-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+            display: block;
+            padding: 10px;
+        }
+
+    .sp-card:hover .sp-card-img img {
+        transform: scale(1.08);
+    }
+
+    .sp-card-body {
+        padding: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sp-card-name {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #1a1a2e;
+        margin-bottom: 6px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.5;
+    }
+
+    .sp-card-desc {
+        font-size: 12px;
+        color: #999;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .sp-card-price {
+        font-size: 16px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 14px;
+    }
+
+    .sp-card-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+    }
+
+    .btn-sp-buy {
+        flex: 1;
+        padding: 10px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #4361ee, #7209b7);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: opacity 0.18s, transform 0.15s;
+        box-shadow: 0 3px 10px rgba(67,97,238,0.22);
+        border: none;
+        cursor: pointer;
+    }
+
+        .btn-sp-buy:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            color: #fff;
+        }
+
+    .btn-sp-fav {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: #fff0f1;
+        border: 1.5px solid #ffc5c8;
+        color: #e63946;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.18s, color 0.18s, border-color 0.18s;
+        flex-shrink: 0;
+    }
+
+        .btn-sp-fav:hover {
+            background: #e63946;
+            color: #fff;
+            border-color: #e63946;
+        }
+
+        .btn-sp-fav.added {
+            background: #e63946;
+            color: #fff;
+            border-color: #e63946;
+        }
+
+    /* No results */
+    .sp-no-results {
+        text-align: center;
+        padding: 60px 20px;
+        color: #bbb;
+        font-size: 14px;
+        display: none;
+        grid-column: 1/-1;
+    }
+
+        .sp-no-results i {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+    /* Toast */
+    .sp-toast {
+        position: fixed;
+        bottom: 80px;
+        right: 24px;
+        background: #1a1a2e;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 14px;
+        font-size: 13.5px;
+        font-weight: 500;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        gap: 10px;
+        animation: toastIn 0.25s ease;
+    }
+
+        .sp-toast.show {
+            display: flex;
+        }
+
+        .sp-toast i {
+            color: #10b981;
+            font-size: 16px;
+        }
+
+    @@keyframes toastIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .sp-filter-bar {
+            gap: 8px;
+        }
+
+        .sp-search-wrap {
+            margin-left: 0;
+            width: 100%;
+        }
+
+            .sp-search-wrap input {
+                width: 100% !important;
+            }
+
+        .sp-price-input {
+            width: 90px;
+        }
+
+        .sp-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .sp-card-img {
+            height: 150px;
+        }
+    }
+</style>
+
+<!-- Toast -->
+<div class="sp-toast" id="spToast">
+    <i class="fas fa-check-circle"></i>
+    <span id="spToastMsg">Đã thêm vào yêu thích!</span>
+</div>
+
+<!-- Filter bar -->
+<div class="sp-filter-bar">
+    <span class="sp-filter-label"><i class="fas fa-sliders-h"></i> Sắp xếp</span>
+
+    <button class="sp-filter-btn active" onclick="sortProducts('default', this)">
+        <i class="fas fa-th-large"></i> Mặc định
+    </button>
+    <button class="sp-filter-btn" onclick="sortProducts('name-asc', this)">
+        <i class="fas fa-sort-alpha-down"></i> A → Z
+    </button>
+    <button class="sp-filter-btn" onclick="sortProducts('name-desc', this)">
+        <i class="fas fa-sort-alpha-up"></i> Z → A
+    </button>
+
+    <div class="sp-filter-divider"></div>
+
+    <button class="sp-filter-btn" onclick="sortProducts('price-asc', this)">
+        <i class="fas fa-arrow-up"></i> Giá thấp
+    </button>
+    <button class="sp-filter-btn" onclick="sortProducts('price-desc', this)">
+        <i class="fas fa-arrow-down"></i> Giá cao
+    </button>
+
+    <div class="sp-filter-divider"></div>
+
+    <!-- Lọc khoảng giá -->
+    <div class="sp-price-wrap">
+        <input type="number" class="sp-price-input" id="priceMin" placeholder="Giá từ...">
+        <span class="sp-price-sep">—</span>
+        <input type="number" class="sp-price-input" id="priceMax" placeholder="Đến...">
+        <button class="sp-price-apply" onclick="filterByPrice()">
+            <i class="fas fa-filter"></i> Lọc
+        </button>
+    </div>
+
+    <!-- Tìm kiếm tên -->
+    <div class="sp-search-wrap">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Tìm sản phẩm..." oninput="filterByName(this.value)">
+    </div>
+</div>
+
+<!-- Số kết quả -->
+<div class="sp-result-info" id="resultInfo">
+    <i class="fas fa-box" style="color:#4361ee;"></i>
+    Hiển thị <strong id="resultCount">0</strong> sản phẩm
+</div>
+
+<!-- Product grid -->
+<div class="sp-grid" id="spGrid">
+    @foreach (var item in Model)
+    {
+        <div class="sp-card"
+             data-name="@item.Name.ToLower()"
+             data-price="@item.price"
+             data-id="@item.Id">
+
+            <div class="sp-card-img">
+                <a asp-action="Details" asp-route-sanphamid="@item.Id">
+                    <img src="@item.ImageUrl" alt="@item.Name" />
+                </a>
+            </div>
+
+            <div class="sp-card-body">
+                <div class="sp-card-name">@item.Name</div>
+                <div class="sp-card-desc">@item.Description</div>
+                <div class="sp-card-price">
+                    @item.price.ToString("N0").Replace("'", ".")đ
+                </div>
+                <div class="sp-card-actions">
+                    <a asp-action="Details" asp-route-sanphamid="@item.Id" class="btn-sp-buy">
+                        <i class="fas fa-shopping-cart"></i> Mua hàng
+                    </a>
+                    <button class="btn-sp-fav add-to-favorites"
+                            data-sanpham-id="@item.Id"
+                            title="Thêm vào yêu thích">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="sp-no-results" id="noResults">
+        <i class="fas fa-search"></i>
+        Không tìm thấy sản phẩm phù hợp
+    </div>
+</div>
+
+<script>
+    const grid = document.getElementById('spGrid');
+    let defaultOrder = Array.from(grid.querySelectorAll('.sp-card'));
+    let currentFilter = { name: '', minPrice: null, maxPrice: null };
+
+    // ── Cập nhật số lượng hiển thị ───────────────────
+    function updateCount() {
+        const visible = grid.querySelectorAll('.sp-card[style=""], .sp-card:not([style])').length
+            + Array.from(grid.querySelectorAll('.sp-card')).filter(c => c.style.display !== 'none').length;
+
+        // Đếm lại chính xác
+        const count = Array.from(grid.querySelectorAll('.sp-card')).filter(c => c.style.display !== 'none').length;
+        document.getElementById('resultCount').textContent = count;
+
+        const noRes = document.getElementById('noResults');
+        noRes.style.display = count === 0 ? 'block' : 'none';
+    }
+
+    // ── Áp dụng tất cả filter hiện tại ───────────────
+    function applyFilters() {
+        const cards = grid.querySelectorAll('.sp-card');
+        cards.forEach(card => {
+            const name  = card.dataset.name || '';
+            const price = parseFloat(card.dataset.price) || 0;
+
+            const nameOk  = !currentFilter.name || name.includes(currentFilter.name);
+            const minOk   = currentFilter.minPrice === null || price >= currentFilter.minPrice;
+            const maxOk   = currentFilter.maxPrice === null || price <= currentFilter.maxPrice;
+
+            card.style.display = (nameOk && minOk && maxOk) ? '' : 'none';
+        });
+        updateCount();
+    }
+
+    // ── Sắp xếp ──────────────────────────────────────
+    function sortProducts(type, btn) {
+        document.querySelectorAll('.sp-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const cards = Array.from(grid.querySelectorAll('.sp-card'));
+
+        if (type === 'default') {
+            defaultOrder.forEach(card => grid.insertBefore(card, document.getElementById('noResults')));
+        } else {
+            cards.sort((a, b) => {
+                if (type === 'name-asc')   return a.dataset.name.localeCompare(b.dataset.name, 'vi');
+                if (type === 'name-desc')  return b.dataset.name.localeCompare(a.dataset.name, 'vi');
+                if (type === 'price-asc')  return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                if (type === 'price-desc') return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+            });
+            cards.forEach(card => grid.insertBefore(card, document.getElementById('noResults')));
+        }
+
+        applyFilters();
+    }
+
+    // ── Lọc theo tên ─────────────────────────────────
+    function filterByName(keyword) {
+        currentFilter.name = keyword.trim().toLowerCase();
+        applyFilters();
+    }
+
+    // ── Lọc theo khoảng giá ──────────────────────────
+    function filterByPrice() {
+        const minVal = document.getElementById('priceMin').value;
+        const maxVal = document.getElementById('priceMax').value;
+        currentFilter.minPrice = minVal ? parseFloat(minVal) : null;
+        currentFilter.maxPrice = maxVal ? parseFloat(maxVal) : null;
+        applyFilters();
+    }
+
+    // Reset khoảng giá khi xóa input
+    document.getElementById('priceMin').addEventListener('input', function() {
+        if (!this.value && !document.getElementById('priceMax').value) {
+            currentFilter.minPrice = null;
+            currentFilter.maxPrice = null;
+            applyFilters();
+        }
+    });
+
+    // ── Toast notification ────────────────────────────
+    function showToast(msg) {
+        const toast = document.getElementById('spToast');
+        document.getElementById('spToastMsg').textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ── Yêu thích AJAX ───────────────────────────────
+    $(document).on('click', '.add-to-favorites', function(e) {
+        e.preventDefault();
+        const btn = $(this);
+        const sanPhamId = btn.data('sanpham-id');
+        btn.prop('disabled', true);
+
+        $.ajax({
+            url: '/Customers/FavoriteProduct/AddToFavorites',
+            type: 'POST',
+            data: { sanPhamId: sanPhamId },
+            success: function(response) {
+                showToast(response.message || 'Đã thêm vào yêu thích!');
+                btn.addClass('added');
+            },
+            error: function(xhr) {
+                showToast('Có lỗi xảy ra. Vui lòng thử lại.');
+            },
+            complete: function() {
+                setTimeout(() => btn.prop('disabled', false), 1000);
+            }
+        });
+    });
+
+    // ── Init ─────────────────────────────────────────
+    updateCount();
+</script>

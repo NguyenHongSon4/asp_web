@@ -1,0 +1,8 @@
+@media only screen and (max-width: 1024px){
+}
+@media only screen and (min-width: 480px) and (max-width: 768px){
+.mkdf-section.mkdf-parallax-section-holder { height: auto !important;min-height: 400px;}
+}
+@media only screen and (max-width: 480px){
+.mkdf-section.mkdf-parallax-section-holder { height: auto !important;min-height: 400px;}
+}
