@@ -1,0 +1,40 @@
+﻿@model Sach
+
+<div class="container">
+    <h3>Bạn có chắc muốn xóa ?</h3>
+    <form method="post">
+
+        <lable asp-for="BookId">ID sách: </lable>
+        <input asp-for="BookId" type="text" class="form-control" readonly/>
+        <span asp-validation-for="BookId" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="Title">Tiêu đề: </lable>
+        <input asp-for="Title" type="text" class="form-control" readonly/>
+        <span asp-validation-for="Title" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="PublicationYear">Năm xuất bản: </lable>
+        <input asp-for="PublicationYear" type="text" class="form-control" readonly/>
+        <span asp-validation-for="PublicationYear" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="AuthorId">Mã tác giả: </lable>
+        <input asp-for="AuthorId" type="text" class="form-control" readonly/>
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+
+        <lable asp-for="Genre">Thể loại: </lable>
+        <input asp-for="Genre" type="text" class="form-control" readonly/>
+        <span asp-validation-for="Genre" class="text-danger"></span>
+        <br />
+
+        <button type="submit" class="btn btn-primary">Xóa</button>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

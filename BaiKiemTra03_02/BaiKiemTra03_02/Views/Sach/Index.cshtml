@@ -1,0 +1,38 @@
+﻿@model Sach
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tiêu đề:</th>
+                <th>Mã TG</th>
+                <th>Thể loại</th>
+                <th>Năm xuất bản<th>
+                <th>
+                    Chức năng
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Sach)
+            {
+                <tr>
+                    <td>@item.BookId</td>
+                    <td>@item.Title</td>
+                    <td>@item.AuthorId</td>
+                    <td>@item.Genre</td>
+                    <td>@item.PublicationYear</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.BookId" class="btn btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.BookId" class="btn btn-success">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.BookId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-controller="Sach" asp-action="Upsert" class="btn btn-primary"> Thêm mới</a>
+
+</div>
+
+

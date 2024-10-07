@@ -1,0 +1,35 @@
+﻿@model TacGia
+
+<div class="container">
+    <h3>Bạn có chắc muốn xóa tác giả này?</h3>
+    <form method="post">
+
+        <lable asp-for="AuthorId">Mã tác giả: </lable>
+        <input asp-for="AuthorId" type="text" class="form-control" / readonly>
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="AuthorName">Tên: </lable>
+        <input asp-for="AuthorName" type="text" class="form-control" / readonly>
+        <span asp-validation-for="AuthorName" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="Nationality">Quốc tịch: </lable>
+        <input asp-for="Nationality" type="text" class="form-control" readonly/>
+        <span asp-validation-for="Nationality" class="text-danger"></span>
+        <br />
+
+        <lable asp-for="BirthYear">Ngày sinh: </lable>
+        <input asp-for="BirthYear" type="text" class="form-control" readonly/>
+        <span asp-validation-for="BirthYear" class="text-danger"></span>
+
+        <button type="submit" class="btn btn-primary">Xóa</button>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
